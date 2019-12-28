@@ -1,21 +1,25 @@
 {
-  "name": "my-locations",
-  "version": "0.0.0",
+  "name": "my-locations-app",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
+    "start:dev": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.5",
+    "@angular/cdk": "~8.2.3",
     "@angular/common": "~8.2.5",
     "@angular/compiler": "~8.2.5",
     "@angular/core": "~8.2.5",
+    "@angular/flex-layout": "^8.0.0-beta.27",
     "@angular/forms": "~8.2.5",
+    "@angular/material": "^8.2.3",
     "@angular/platform-browser": "~8.2.5",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
@@ -39,9 +43,12 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
-    "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
+  },
+  "engines": {
+    "node": "~10.16.0",
+    "npm": "~6.4.1"
   }
 }
