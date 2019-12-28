@@ -21,6 +21,7 @@
     "@angular/forms": "~8.2.5",
     "@angular/material": "^8.2.3",
     "@angular/platform-browser": "~8.2.5",
+    "express": "^4.17.1",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
     "rxjs": "~6.4.0",
