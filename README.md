@@ -1,6 +1,6 @@
 # My Locations Applcation
 
-Demo: TBD
+Demo: http://pacific-spire-36644.herokuapp.com/
 
 ## Getting Started
 
