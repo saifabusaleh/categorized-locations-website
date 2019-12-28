@@ -12,3 +12,13 @@ Developed with Angular 8 + Typescript
 * categories is saved into local storage.
 * Use of angular material + flex layout.
 * Use of RxJs(reactive programming).
+
+Images:
+
+<img src="images/1.PNG" alt="img1" height="200">
+
+<img src="images/2.PNG" alt="img2" height="200">
+
+<img src="images/3.PNG" alt="img3" height="200">
+
+<img src="images/4.PNG" alt="img4" height="200">
