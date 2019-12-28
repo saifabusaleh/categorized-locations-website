@@ -16,19 +16,19 @@ export interface DialogData {
 })
 export class CategoryDialog {
 
-  close: string = 'Close';
+  closeButtonText: string = 'Close';
 
-  buttonText: string;
+  addOrEditButtonText: string;
   constructor(
     private dialogRef: MatDialogRef<CategoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     switch (data.mode) {
       case DialogModes.Add:
-        this.buttonText = 'Add';
+        this.addOrEditButtonText = 'Add';
         break;
 
       case DialogModes.Edit:
-        this.buttonText = 'Edit';
+        this.addOrEditButtonText = 'Edit';
         break;
     }
   }
@@ -36,7 +36,5 @@ export class CategoryDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-
 
 }
