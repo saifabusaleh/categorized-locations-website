@@ -1,5 +1,7 @@
+import { Coordinate } from 'src/app/model/location';
+import { AppLocation } from './../../model/location';
+import { Category } from 'src/app/model/category';
 import { Injectable } from '@angular/core';
-import { Category } from '../../model/category';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,16 @@ export class LocalStorageService {
   private parseToCategoryType(categoriesObj): Category[] { 
     let categoriesResult: Category[] = [];
     categoriesObj.forEach((cat) => {
-      categoriesResult.push(new Category(cat._categoryName));
+      let catToAdd: Category = new Category(cat._categoryName);
+      catToAdd.locations = [];
+      if (cat._locations) {
+        cat._locations.forEach((loc) => {
+          const cords: Coordinate = new Coordinate(loc._coords._lat, loc._coords._lng);
+          catToAdd.locations.push(new AppLocation(loc._name, loc._address,
+            cords, cat._categoryName));
+        });
+      }
+      categoriesResult.push(catToAdd);
     });
     return categoriesResult;
   }

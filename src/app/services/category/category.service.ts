@@ -3,50 +3,61 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { Category } from '../../model/category';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  private categoriesSubject: Subject<Category[]>;
-  constructor(private localStorageService: LocalStorageService) {
-    this.categoriesSubject = new Subject<Category[]>();
 
+  private _categories: Category[];
+  private categoriesSubject: Subject<Category[]>;
+
+
+  constructor(private localStorageService: LocalStorageService) {
+    this._categories = [];
+    this.categoriesSubject = new Subject<Category[]>();
+  }
+
+  get categories() {
+    return this._categories;
+  }
+  set categories(value: Category[]) {
+    this._categories = value;
+    this.categoriesSubject.next(this._categories);
   }
 
   public getCategories(): Observable<CategoryResponse> {
 
     const categories: Category[] = this.localStorageService.getCategories();
     const categoriesResponse = new CategoryResponse();
-    categoriesResponse.categories = categories;
+    this.categories = categories;
+    categoriesResponse.categories = this.categories;
     return of(categoriesResponse);
   }
 
   public createCategory(category: Category): Observable<CategoryResponse> {
     const categoriesResponse = new CategoryResponse();
-    let categories: Category[] = this.localStorageService.getCategories();
-    if (!categories) {
-      categories = [];
-    }
-    const isCategoryExist: Category = categories.find((cat: Category) =>
-      cat.getCategoryName() === category.getCategoryName()
+    const isCategoryExist: Category = this.categories.find((cat: Category) =>
+      cat.categoryName === category.categoryName
     );
     if (isCategoryExist) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_ALREADY_EXIST;
       return of(categoriesResponse);
     }
-    categories.push(category);
-    this.localStorageService.setCategories(categories);
-    categoriesResponse.categories = categories;
-    this.categoriesSubject.next(categories);
+    this.categories.push(category);
+    this.localStorageService.setCategories(this.categories);
     return of(categoriesResponse);
   }
 
   public getCategoryByName(catName: string): Observable<CategoryResponse> {
+    if (!this.categories || this.categories.length === 0) {
+      // Handle the case when we are in refresh mode and the categories list is destroyed
+      this.categories = this.localStorageService.getCategories();
+    }
     const categoriesResponse = new CategoryResponse();
-    const categories: Category[] = this.localStorageService.getCategories();
-    const category: Category = categories.find((cat: Category) =>
-      cat.getCategoryName() === catName
+    const category: Category = this.categories.find((cat: Category) =>
+      cat.categoryName === catName
     );
     if (!category) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
@@ -56,49 +67,35 @@ export class CategoryService {
     return of(categoriesResponse);
   }
 
-  public updateCategory(category: Category, newCategoryName: string): Observable<CategoryResponse> {
+  public updateCategoryName(categoryName: string, newCategoryName: string): Observable<CategoryResponse> {
     const categoriesResponse = new CategoryResponse();
-    let categories: Category[] = this.localStorageService.getCategories();
-    if (!categories) {
-      categories = [];
-    }
-    const categoryIndex: number = categories.findIndex((cat: Category) =>
-      cat.getCategoryName() === category.getCategoryName()
+    const categoryIndex: number = this.categories.findIndex((cat: Category) =>
+      cat.categoryName === categoryName
     );
     if (categoryIndex === -1) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
       return of(categoriesResponse);
     }
-
-    categories[categoryIndex].setCategoryName(newCategoryName);
-    this.localStorageService.setCategories(categories);
-    categoriesResponse.categories = categories;
-    this.categoriesSubject.next(categories);
+    this.categories[categoryIndex].categoryName = newCategoryName;
+    this.localStorageService.setCategories(this.categories);
     return of(categoriesResponse);
   }
 
-  public deleteCategory(category: Category): Observable<CategoryResponse> {
+  public deleteCategory(categoryName: string): Observable<CategoryResponse> {
     const categoriesResponse = new CategoryResponse();
-    let categories: Category[] = this.localStorageService.getCategories();
-    if (!categories) {
-      categories = [];
-    }
-    const categoryIndex: number = categories.findIndex((cat: Category) =>
-      cat.getCategoryName() === category.getCategoryName()
+    const categoryIndex: number = this.categories.findIndex((cat: Category) =>
+      cat.categoryName === categoryName
     );
     if (categoryIndex === -1) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
       return of(categoriesResponse);
     }
-    categories.splice(categoryIndex, 1); // return value is deleted items or item
-    this.localStorageService.setCategories(categories);
-    categoriesResponse.categories = categories;
-    this.categoriesSubject.next(categories);
+    this.categories.splice(categoryIndex, 1); // return value is deleted items or item
+    this.localStorageService.setCategories(this.categories);
     return of(categoriesResponse);
   }
 
-  getCategoriesObservable(): Observable<any> {
+  public getCategoriesObservable(): Observable<Category[]> {
     return this.categoriesSubject.asObservable();
   }
-
 }

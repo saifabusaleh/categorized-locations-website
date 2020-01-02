@@ -14,6 +14,8 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": ["googlemaps"],
+    
     "lib": [
       "es2018",
       "dom"

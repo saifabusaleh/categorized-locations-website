@@ -1,3 +1,6 @@
+import { LocationStatusEnum, LocationResponse } from './../../model/location-response';
+import { LocationService } from './../../services/location/location.service';
+import { LocationFormComponent } from './../location-form/location-form.component';
 import { DialogModes } from './../../model/dialog-modes';
 import { AppPaths } from './../../model/app-paths';
 import { Component, OnInit } from '@angular/core';
@@ -6,9 +9,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterEvent, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Context } from 'src/app/model/context';
 import { Category } from 'src/app/model/category';
-import { CategoryResponse } from 'src/app/model/category.response';
+import { CategoryResponse, CategoryStatusEnum } from 'src/app/model/category.response';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppLocation } from 'src/app/model/location';
 
 @Component({
   selector: 'app-toolbar',
@@ -28,24 +32,25 @@ export class ToolbarComponent implements OnInit {
   title = '';
 
 
-  menuAddCategory = 'Add Category';
-  menuEditCategory = 'Edit Category';
 
-  menuDeleteCategory = 'Delete Category';
+  menuAdd = 'Add';
+  menuEdit = 'Edit';
 
-  newCategoryDialogTitle: string = 'Add Category';
+  menuDelete = 'Delete';
 
-  editCategoryDialogTitle: string = 'Edit Category';
-  categoryDialogContent: string = 'What is the category name?';
+  currentLocationOrCategoryName = '';
 
-  currentCategoryName = '';
+  CurrentContext: Context;
 
-  constructor(private dialog: MatDialog,
-    private router: Router,
-    private categoryService: CategoryService,
-    private snackBar: MatSnackBar) {
+  urlSegments: string[];
 
-    this.router.events.subscribe((event: RouterEvent) => {
+  constructor(private _dialog: MatDialog,
+    private _router: Router,
+    private _categoryService: CategoryService,
+    private _snackBar: MatSnackBar,
+    private _locationService: LocationService) {
+
+    this._router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         this.updateToolbarAfterRouting(event);
       }
@@ -53,28 +58,39 @@ export class ToolbarComponent implements OnInit {
   }
 
   private updateToolbarAfterRouting(event: NavigationEnd) {
-    const urlSegments = event.url.split('/');
-    if (urlSegments && urlSegments.length > 2) {
-      if (urlSegments[1] === AppPaths.CategoryDetails) { //TODO: Category should be defined once string 
-        this.currentCategoryName = urlSegments[2];
-        this.updateUIWithContext(Context.Category);
+    this.urlSegments = event.url.split('/');
+    if (this.urlSegments && this.urlSegments.length > 2) {
+      if (this.urlSegments[1] === AppPaths.CategoryDetails) { 
+        this.currentLocationOrCategoryName = this.urlSegments[2];
+        this.updateUIWithContext(this.urlSegments[1]);
+        return;
+      }
+      if (this.urlSegments[1] === AppPaths.Location) { 
+        this.currentLocationOrCategoryName = this.urlSegments[3];
+        this.updateUIWithContext(this.urlSegments[1]);
         return;
       }
     }
-    this.updateUIWithContext(Context.CategoryList);
+    this.updateUIWithContext(this.urlSegments[1]);
   }
 
-  private updateUIWithContext(con: Context) {
+  private updateUIWithContext(conString: string) {
+    if (!conString) {
+      conString = 'categories';
+    }
+    let con: Context = Context[conString];
+    this.CurrentContext = con;
     switch (con) {
-      case Context.CategoryList:
-        this.title = 'Category list';
+      case Context.locations:
+      case Context.categories:
+        this.title = conString;
         this.isAddDisabled = false;
         this.isEditDisabled = this.isDeleteDisabled = true;
-
         break;
 
-      case Context.Category:
-        this.title = 'Category: ' + this.currentCategoryName;
+      case Context.category:
+        case Context.location:
+        this.title = this.currentLocationOrCategoryName;
         this.isAddDisabled = true;
         this.isEditDisabled = this.isDeleteDisabled = false;
         break;
@@ -84,72 +100,144 @@ export class ToolbarComponent implements OnInit {
     //
   }
 
-  performCreateCategory(categoryName: string) {
+  private performAddCategory(categoryName: string) {
     if (categoryName) {
-      this.categoryService.createCategory(new Category(categoryName)).subscribe((response: CategoryResponse) => {
-        if (response.status !== undefined) {
-          this.showSnackBar('Category already exist');
+      this._categoryService.createCategory(new Category(categoryName)).subscribe((response: CategoryResponse) => {
+        if (response.status) {
+          this.handleError(response.status, categoryName);
         }
-        console.log(response);
       });
     }
   }
 
-  performUpdateCategory(newCategoryName: string) {
+  private performUpdateCategory(newCategoryName: string) {
     if (newCategoryName) {
-      this.categoryService.getCategoryByName(this.currentCategoryName).subscribe((response: CategoryResponse) => {
-        if (response.status !== undefined) {
-          this.showSnackBar('Category doesnt exist');
-        }
-        this.categoryService.updateCategory(response.categories[0], newCategoryName).subscribe((response: CategoryResponse) => {
-          console.log(response.categories);
-          this.router.navigate([AppPaths.CategoryDetails + '/' + newCategoryName], { replaceUrl: true });
+        this._categoryService.updateCategoryName(this.currentLocationOrCategoryName, newCategoryName).subscribe((response: CategoryResponse) => {
+          if (response.status) {
+            this.handleError(response.status, this.currentLocationOrCategoryName);
+            return;
+          }
+          this._router.navigate(['/' + AppPaths.CategoryDetails + '/' + newCategoryName], { replaceUrl: true });
         });
+    }
+  }
+
+  private performAddLocation(location: AppLocation) {
+    if (location) {
+      this._locationService.createLocation(location).subscribe((response: LocationResponse) => {
+        if (response.status) {
+          this.handleError(response.status, `Category ${location.category} not found!`);
+        }
       });
     }
   }
-  onAddDialog() {
 
-    const dialogRef = this.openDialog(this.newCategoryDialogTitle, this.categoryDialogContent, DialogModes.Add);
-    dialogRef.afterClosed().subscribe(categoryName => {
-      console.log('The dialog was closed with output: ', categoryName);
-      this.performCreateCategory(categoryName);
-    });
+  private performUpdateLocation(newLocation: AppLocation) {
+    if (newLocation) {
+        this._locationService.updateLocation(this.currentLocationOrCategoryName, this.urlSegments[2], newLocation).subscribe((response: LocationResponse) => {
+          if (response.status) {
+            this.handleError(response.status, this.currentLocationOrCategoryName);
+            return;
+          }
+          this._router.navigate(['/' + AppPaths.Location + '/' + this.urlSegments[2] + '/' + this.currentLocationOrCategoryName]);
+        });
+    }
   }
-  openDialog(titleInput: string, contentInput: string, modeInput: DialogModes) {
-    const dialogRef = this.dialog.open(CategoryDialog, {
+  onAdd() {
+    let dialogRef;
+    switch (this.CurrentContext) {
+      case Context.categories:
+        dialogRef = this.openCategoryDialog(DialogModes.Add);
+        dialogRef.afterClosed().subscribe(categoryName => {
+          this.performAddCategory(categoryName);
+        });
+        break;
+
+      case Context.locations:
+        dialogRef = this.openLocationDialog(DialogModes.Add);
+        dialogRef.afterClosed().subscribe((location: AppLocation) => {
+          this.performAddLocation(location);
+        });
+        break;
+    }
+  }
+  openCategoryDialog(modeInput: DialogModes) {
+    const dialogRef = this._dialog.open(CategoryDialog, {
       width: '260px',
-      data: { categoryName: '', title: titleInput, content: contentInput, mode: modeInput }
+      data: { categoryName: '', mode: modeInput }
     });
     return dialogRef;
   }
 
-  onEditDialog() {
-    const dialogRef = this.openDialog(this.editCategoryDialogTitle, this.categoryDialogContent,  DialogModes.Edit);
-    dialogRef.afterClosed().subscribe(categoryName => {
-      this.performUpdateCategory(categoryName);
+  openLocationDialog(modeInput: DialogModes) {
+    const dialogRef = this._dialog.open(LocationFormComponent, {
+      data: { locationName: this.currentLocationOrCategoryName, locationCategory: this.urlSegments[2] , mode: modeInput },
+      width: '500px'
     });
+    return dialogRef;
   }
 
-  onDeleteDialog() {
-    this.categoryService.getCategoryByName(this.currentCategoryName).subscribe((response: CategoryResponse) => {
-      if (response.status !== undefined) {
-        console.error('category ', this.currentCategoryName, ' doesnt exist!');
-        this.showSnackBar(`category ${this.currentCategoryName} doesnt exist!`);
-        this.router.navigate(['/']);
-        return;
-      }
-      let categoryToDelete: Category = response.categories[0];
-      this.categoryService.deleteCategory(categoryToDelete).subscribe((response: CategoryResponse) => {
-        this.router.navigate(['/']);
+  onEdit() {
+    let dialogRef;
+    switch (this.CurrentContext) {
+      case Context.category:
+        dialogRef = this.openCategoryDialog(DialogModes.Edit);
+        dialogRef.afterClosed().subscribe(categoryName => {
+          this.performUpdateCategory(categoryName);
+        });
+        break;
+      case Context.location:
+        dialogRef = this.openLocationDialog(DialogModes.Edit);
+        dialogRef.afterClosed().subscribe((location: AppLocation) => {
+          this.performUpdateLocation(location);
+        });
+        break;
+    }
+  }
+
+  onDelete() {
+    switch (this.CurrentContext) {
+      case Context.category:
+        this.performDeleteCategory();
+        break;
+      case Context.location:
+        this.performDeleteLocation();
+        break;
+
+    }
+  }
+
+  private performDeleteCategory() {
+
+      this._categoryService.deleteCategory(this.currentLocationOrCategoryName).subscribe((response: CategoryResponse) => {
+        if (response.status) {
+          this.handleError(response.status, this.currentLocationOrCategoryName);
+          return;
+        }
+        this._router.navigate(['/']);
       });
-    });
+  }
+
+  private performDeleteLocation() {
+      this._locationService.deleteLocation(this.currentLocationOrCategoryName, this.urlSegments[2]).subscribe((response: LocationResponse) => {
+        if (response.status) {
+          this.handleError(response.status, this.currentLocationOrCategoryName);
+          return;
+        }
+        this._router.navigate(['/' + AppPaths.Locations]);
+      });
   }
 
 
   private showSnackBar(message: string) {
-    this.snackBar.open(message, 'Close', {
+    this._snackBar.open(message, 'Close', {
       duration: 7000,
     });
+  }
+
+  private handleError(status: CategoryStatusEnum | LocationStatusEnum, parameter?: string) {
+    this.showSnackBar(status.replace('{0}', parameter));
+
+    this._router.navigate(['/']);
   }
 }

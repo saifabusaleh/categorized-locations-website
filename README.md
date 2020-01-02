@@ -13,6 +13,16 @@ Run `npm run start:dev` to debug locally
 * Use of angular material + flex layout.
 * Use of RxJs(reactive programming).
 
+
+**TODO**:
+* When adding location update locations list
+* When updating location update location view
+* Change locations and categories services data structure to advanced DS
+* Add grouping to grid
+* Add validations to forms
+* change agm-map to @angular/maps
+* Lazy loading for locations and categories components
+
 Images:
 
 <img src="images/1.PNG" alt="img1" height="200">

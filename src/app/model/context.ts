@@ -1,4 +1,9 @@
 export enum Context {
-    CategoryList,
-    Category
+    category = 'Category',
+    categories = 'Category list',
+
+    locations = 'Locations',
+
+    location = 'Location'
+
   }

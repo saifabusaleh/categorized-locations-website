@@ -18,14 +18,14 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   categoriesHeader: string = 'Categories';
 
   appPathsEnum = AppPaths;
-  constructor(private categoryService: CategoryService) {
-    this.categoryService.getCategories().subscribe((response: CategoryResponse) => {
+  constructor(private _categoryService: CategoryService) {
+    this._categoryService.getCategories().subscribe((response: CategoryResponse) => {
       this.categories = response.categories;
     });
   }
 
   ngOnInit() {
-    this.subscription = this.categoryService.getCategoriesObservable().subscribe((categories: Category[]) => {
+    this.subscription = this._categoryService.getCategoriesObservable().subscribe((categories: Category[]) => {
       this.categories = categories;
     });
   }

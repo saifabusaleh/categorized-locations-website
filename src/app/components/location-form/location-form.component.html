@@ -1,0 +1,39 @@
+<form [formGroup]="locationForm" fxLayout="column" fxFlex="1 1 95%" fxLayoutAlign="center">
+    <mat-form-field fxFlex="0 0 auto">
+        <input matInput formControlName="locationName" placeholder="Name">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="0 0 auto">
+        <input matInput formControlName="locationAddress" placeholder="Address">
+    </mat-form-field>
+
+    <agm-map fxFlex="0 0 auto" [latitude]='latitude' [longitude]='longitude'
+        (mapClick)='addMarker($event.coords.lat, $event.coords.lng)'>
+        <agm-marker *ngIf="selectedMarker" [latitude]='selectedMarker.lat' [longitude]='selectedMarker.lng'
+            [markerDraggable]='true'>
+        </agm-marker>
+    </agm-map>
+    <div fxFlex="0 0 auto">
+        <div  class="radio-group-container">
+            <label *ngIf="categories.length > 0">Pick category:</label>
+            <mat-radio-group  class="radio-group" fxLayout="row wrap" fxLayoutAlign="space-evenly center" aria-labelledby="radio-group-label" formControlName="selectedCategory">
+                <mat-radio-button *ngFor="let category of categories" [value]="category.categoryName">
+                    {{category.categoryName}}
+                </mat-radio-button>
+                <label *ngIf="categories.length === 0 ">No Categories found!</label>
+            </mat-radio-group>
+        </div>
+        
+    </div>
+
+
+    <!-- <p *ngIf='selectedMarker'>Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}</p> -->
+    <div fxFlex>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <button fxFlex mat-button (click)="onConfirmClick()" color="primary">{{confirmation}}</button>
+            <button fxFlex mat-button (click)="onCancelClick()" color="primary">{{cancel}}</button>
+        </div>
+    </div>
+
+
+</form>

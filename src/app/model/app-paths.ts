@@ -1,3 +1,6 @@
 export enum AppPaths {
-    CategoryDetails = 'category'
+    CategoryDetails = 'category',
+    Locations = 'locations',
+
+    Location = 'location'
 }

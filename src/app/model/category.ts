@@ -1,15 +1,24 @@
+import { AppLocation } from './location';
 export class Category {
     constructor(categoryName: string) {
         this._categoryName = categoryName;
     }
     private _categoryName: string;
-    private locations: Location[];
+    private _locations: AppLocation[];
 
-    public getCategoryName() {
+    get categoryName() {
         return this._categoryName;
     }
 
-    public setCategoryName(newCategoryName: string) {
+    set categoryName(newCategoryName: string) {
         this._categoryName = newCategoryName;
+    }
+
+    get locations() {
+        return this._locations;
+    }
+
+    set locations(locations: AppLocation[]) {
+        this._locations = locations;
     }
 }

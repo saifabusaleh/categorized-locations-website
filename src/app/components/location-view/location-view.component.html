@@ -1,0 +1,21 @@
+<div class="location-view-container">
+    <div fxLayout="column" fxLayoutAlign="start start">
+        <label>
+            Name: {{location.name}}
+        </label>
+
+        <label>
+            Address: {{location.address}}
+        </label>
+
+        <label>
+            Category: {{location.category}}
+        </label>
+
+        <agm-map [latitude]='latitude' [longitude]='longitude'>
+            <agm-marker [latitude]='latitude' [longitude]='longitude' [markerDraggable]='true'>
+            </agm-marker>
+        </agm-map>
+    </div>
+
+</div>

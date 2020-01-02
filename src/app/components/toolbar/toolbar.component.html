@@ -1,23 +1,23 @@
 <mat-toolbar color="primary">
 
-	<mat-toolbar-row fxFlex>
+	<mat-toolbar-row>
 
 		<mat-menu #menu="matMenu">
-			<button mat-menu-item (click)="onAddDialog()" [disabled]="isAddDisabled">
+			<button mat-menu-item [disabled]="isAddDisabled" (click)="onAdd()"> 
 				<mat-icon>add</mat-icon>
-				<span>{{menuAddCategory}}</span>
+				<span>{{menuAdd}}</span>
 			</button>
-			<button mat-menu-item [disabled]="isEditDisabled" (click)="onEditDialog()">
+			<button mat-menu-item [disabled]="isEditDisabled" (click)="onEdit()">
 				<mat-icon>edit</mat-icon>
-				<span>{{menuEditCategory}}</span>
+				<span>{{menuEdit}}</span>
 			</button>
-			<button mat-menu-item [disabled]="isDeleteDisabled" (click)="onDeleteDialog()">
+			<button mat-menu-item [disabled]="isDeleteDisabled" (click)="onDelete()">
 				<mat-icon>delete</mat-icon>
-				<span>{{menuDeleteCategory}}</span>
+				<span>{{menuDelete}}</span>
 			</button>
 		</mat-menu>
 		<div fxLayoutAlign="start center" fxFlex="1 1 95%" >{{title}} </div>
-		<button fxFlex="1 1 auto" fxLayoutAlign="end start" mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+		<button fxFlex="1 1 auto" fxLayoutAlign="end start" mat-button [matMenuTriggerFor]="menu">
 			<mat-icon>more_vert</mat-icon>
 		</button>
 	</mat-toolbar-row>

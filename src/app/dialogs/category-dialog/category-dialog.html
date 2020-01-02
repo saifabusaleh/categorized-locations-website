@@ -1,11 +1,11 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
+<h1 mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
-  <p>{{data.content}}</p>
+  <p>{{content}}</p>
   <mat-form-field>
     <input matInput [(ngModel)]="data.categoryName">
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div fxLayout="row" fxLayoutAlign="space-evenly start"  mat-dialog-actions>
   <button mat-button [mat-dialog-close]="data.categoryName" cdkFocusInitial>{{addOrEditButtonText}}</button>
-  <button mat-button (click)="onNoClick()">{{closeButtonText}}</button>
+  <button mat-button (click)="onCloseClick()">{{closeButtonText}}</button>
 </div>
