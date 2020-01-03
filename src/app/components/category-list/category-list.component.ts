@@ -1,7 +1,7 @@
+import { Category } from './../../model/category';
 import { AppPaths } from './../../model/app-paths';
 import { Component, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { CategoryService } from 'src/app/services/category/category.service';
-import { Category } from 'src/app/model/category';
 import { CategoryResponse } from 'src/app/model/category.response';
 import { Subscription } from 'rxjs';
 
@@ -25,13 +25,13 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this._categoryService.getCategoriesObservable().subscribe((categories: Category[]) => {
-      this.categories = categories;
-    });
+    // this.subscription = this._categoryService.getCategoriesObservable().subscribe((categories: Category[]) => {
+    //   this.categories = categories;
+    // });
   }
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
+ //   this.subscription.unsubscribe();
   }
 }

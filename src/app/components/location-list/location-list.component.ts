@@ -5,8 +5,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationResponse } from 'src/app/model/location-response';
-import { SelectionModel } from '@angular/cdk/collections';
-
 export interface LocationData {
   name: string;
   address: string;

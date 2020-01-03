@@ -1,7 +1,7 @@
 import { LocationResponse, LocationStatusEnum } from './../../model/location-response';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CategoryResponse } from 'src/app/model/category.response';
 import { AppLocation } from 'src/app/model/location';
 import { Category } from 'src/app/model/category';
@@ -82,7 +82,7 @@ export class LocationService {
         targetCategory.locations.push(location);
       }
       this.localStorageService.setCategories(categories);
-      this._categoryService.categories = categories;
+    //  this._categoryService.categories = categories;
       locationResponse.locations = [location];
       return locationResponse;
     }));

@@ -22,6 +22,7 @@ Run `npm run start:dev` to debug locally
 * Add validations to forms
 * change agm-map to @angular/maps
 * Lazy loading for locations and categories components
+* Write tests
 
 Images:
 

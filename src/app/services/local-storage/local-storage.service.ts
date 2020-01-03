@@ -1,6 +1,6 @@
+import { Category } from './../../model/category';
 import { Coordinate } from 'src/app/model/location';
 import { AppLocation } from './../../model/location';
-import { Category } from 'src/app/model/category';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -14,20 +14,22 @@ export class LocalStorageService {
   }
 
   public setCategories(value): void {
-    localStorage.setItem(this.CATEGORIES_LOCAL_STORAGE_KEY, JSON.stringify(value));
+    localStorage.categories = JSON.stringify(Array.from(value.entries()));
   }
 
 
-  public getCategories(): Category[] {
-    let categoriesObj =  JSON.parse(localStorage.getItem(this.CATEGORIES_LOCAL_STORAGE_KEY));
-    
+  public getCategories(): Map<string, Category> {
+    const categoriesMap: Map<string, Category> =  new Map(JSON.parse(localStorage.getItem(this.CATEGORIES_LOCAL_STORAGE_KEY)));
 
-    return categoriesObj ? this.parseToCategoryType(categoriesObj) : [];
+
+
+    return categoriesMap ? this.parseToCategoryType(categoriesMap) : undefined;
   }
 
-  private parseToCategoryType(categoriesObj): Category[] { 
-    let categoriesResult: Category[] = [];
-    categoriesObj.forEach((cat) => {
+  private parseToCategoryType(categoriesMap): Map<string, Category> { 
+    let categoriesResult: Map<string, Category> = new Map<string, Category>();
+
+    for (const [key, cat] of categoriesMap.entries()) {
       let catToAdd: Category = new Category(cat._categoryName);
       catToAdd.locations = [];
       if (cat._locations) {
@@ -37,8 +39,8 @@ export class LocalStorageService {
             cords, cat._categoryName));
         });
       }
-      categoriesResult.push(catToAdd);
-    });
+      categoriesResult.set(catToAdd.categoryName, catToAdd);
+    }
     return categoriesResult;
   }
 }
