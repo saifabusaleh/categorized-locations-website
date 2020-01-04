@@ -139,7 +139,7 @@ export class ToolbarComponent implements OnInit {
             this.handleError(response.status, this.currentLocationOrCategoryName);
             return;
           }
-          this._router.navigate(['/' + AppPaths.Location + '/' + this.urlSegments[2] + '/' + this.currentLocationOrCategoryName]);
+          this._router.navigate(['/' + AppPaths.Location + '/' + response.location.category + '/' + response.location.name]);
         });
     }
   }

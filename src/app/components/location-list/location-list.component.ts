@@ -5,6 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationResponse } from 'src/app/model/location-response';
+import { RouterEvent, Router, NavigationEnd } from '@angular/router';
 export interface LocationData {
   name: string;
   address: string;
@@ -46,8 +47,16 @@ export class LocationListComponent implements OnInit {
 
     this.dataSource.filterPredicate = (data, filter: string): boolean => {
       return data.categoryName.toLowerCase().includes(filter);
-
     };
+
+    this._locationService.getLocationsObservable().subscribe((response: AppLocation[]) => {
+      this.dataSource = new MatTableDataSource(this.convertFromAppLocationToLocationData(response));
+      this.dataSource.sort = this.sort;
+
+      this.dataSource.filterPredicate = (data, filter: string): boolean => {
+        return data.categoryName.toLowerCase().includes(filter);
+      };
+    });
 
   }
 

@@ -25,13 +25,13 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.subscription = this._categoryService.getCategoriesObservable().subscribe((categories: Category[]) => {
-    //   this.categories = categories;
-    // });
+    this.subscription = this._categoryService.getCategoriesObservable().subscribe((categories: Category[]) => {
+      this.categories = categories;
+    });
   }
 
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
- //   this.subscription.unsubscribe();
+ //   unsubscribe to ensure no memory leaks
+   this.subscription.unsubscribe();
   }
 }

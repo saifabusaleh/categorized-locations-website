@@ -9,10 +9,7 @@ import { AppLocation } from 'src/app/model/location';
   templateUrl: './location-view.component.html',
   styleUrls: ['./location-view.component.scss']
 })
-export class LocationViewComponent implements OnInit, OnChanges {
-  ngOnChanges(changes): void {
-    console.error('soso');
-  }
+export class LocationViewComponent implements OnInit {
 
   location: AppLocation;
   latitude: number;
@@ -23,14 +20,16 @@ export class LocationViewComponent implements OnInit, OnChanges {
     private _locationService: LocationService) { }
 
   ngOnInit() {
+
     const locationName = this.route.snapshot.paramMap.get('locationName');
+    const categoryName = this.route.snapshot.paramMap.get('categoryName');
     if (locationName) {
-      this.getLocation(locationName);
+      this.getLocation(locationName, categoryName);
     }
   }
 
-  getLocation(locationName: string) {
-    this._locationService.getLocation(locationName).subscribe((response: LocationResponse) => {
+  getLocation(locationName: string, categoryName: string) {
+    this._locationService.getLocation(locationName, categoryName).subscribe((response: LocationResponse) => {
       if (response.status) {
         //handle
         return;

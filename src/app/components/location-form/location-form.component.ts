@@ -62,7 +62,7 @@ export class LocationFormComponent implements OnInit {
   ngOnInit() {
 
     if (this.data.mode === DialogModes.Edit) {
-      this._locationService.getLocation(this.data.locationName).subscribe((response: LocationResponse) => {
+      this._locationService.getLocation(this.data.locationName, this.data.locationCategory).subscribe((response: LocationResponse) => {
         if (response.status) {
           //TODO Should return message with status 
           return;
