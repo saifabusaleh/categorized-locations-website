@@ -68,7 +68,7 @@ import { LocationViewComponent } from './components/location-view/location-view.
     ReactiveFormsModule,
     FlexLayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyACCrhxPECAdny-D4CO5R6hG_Vo8vjHmR8'
+      apiKey: // API KEY REMOVED FROM GITHUB
     })
   ],
   providers: [],
