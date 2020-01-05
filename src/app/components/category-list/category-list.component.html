@@ -1,3 +1,23 @@
+<app-toolbar>
+	<span slot-menu>
+		<button mat-menu-item (click)="onAddCategory()"> 
+			<mat-icon>add</mat-icon>
+			<span>{{'TOOLBAR.ADD' | translate}}</span>
+		</button>
+		<button mat-menu-item [disabled]="true">
+			<mat-icon>edit</mat-icon>
+			<span>{{'TOOLBAR.EDIT' | translate}}</span>
+		</button>
+		<button mat-menu-item [disabled]="true">
+			<mat-icon>delete</mat-icon>
+			<span>{{'TOOLBAR.DELETE' | translate}}</span>
+		</button>
+	</span>
+	<span slot-title>
+        {{'CATEGORIES_LIST.TITLE' | translate}}
+    </span>
+</app-toolbar>
+
 <mat-nav-list #categoriesList>
 	<h3 matSubheader>{{'CATEGORIES_LIST.CATEGORIES_HEADER' | translate}}</h3>
 	<mat-divider></mat-divider>

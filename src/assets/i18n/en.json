@@ -12,6 +12,7 @@
     "LOCATIONS": "Locations"
   },
   "CATEGORIES_LIST": {
+    "TITLE": "Categories",
     "CATEGORIES_HEADER": "Categories"
   },
   "CATEGORY_DIALOG": {
@@ -31,9 +32,11 @@
   },
   
   "LOCATION_LIST": {
+    "TITLE": "Locations",
     "COLUMN_NAME": "Name",
     "COLUMN_ADDRESS": "Address",
-    "COLUMN_CATEGORY_NAME": "Category Name"
+    "COLUMN_CATEGORY_NAME": "Category Name",
+    "FILTER_PLACEHOLDER": "Filter By Category"
   },
   "LOCATION_VIEW": {
     "NAME_LABEL": "Name:",

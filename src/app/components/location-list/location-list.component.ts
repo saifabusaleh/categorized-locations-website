@@ -1,3 +1,4 @@
+import { LocationStatusEnum } from './../../model/location-response';
 import { AppPaths } from './../../model/app-paths';
 import { LocationService } from './../../services/location/location.service';
 import { AppLocation } from './../../model/location';
@@ -5,6 +6,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationResponse } from 'src/app/model/location-response';
+import { DialogModes } from 'src/app/model/dialog-modes';
+import { LocationFormDialogComponent } from 'src/app/dialogs/location-form-dialog/location-form-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
 export interface LocationData {
   name: string;
   address: string;
@@ -29,7 +34,9 @@ export class LocationListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'address', 'categoryName'];
 
-  constructor(private _locationService: LocationService) {
+  constructor(private _locationService: LocationService,
+              private _dialog: MatDialog,
+              private _snackBarService: SnackBarService) {
 
     this._locationService.getLocations().subscribe((response: LocationResponse) => {
       this.dataSource = new MatTableDataSource(this.convertFromAppLocationToLocationData(response.locations));
@@ -38,22 +45,15 @@ export class LocationListComponent implements OnInit {
 
 
 
-  ngOnInit() {
+  private updateGridWithDataSource() {
     this.dataSource.sort = this.sort;
 
     this.dataSource.filterPredicate = (data, filter: string): boolean => {
       return data.categoryName.toLowerCase().includes(filter);
     };
-
-    this._locationService.getLocationsObservable().subscribe((response: AppLocation[]) => {
-      this.dataSource = new MatTableDataSource(this.convertFromAppLocationToLocationData(response));
-      this.dataSource.sort = this.sort;
-
-      this.dataSource.filterPredicate = (data, filter: string): boolean => {
-        return data.categoryName.toLowerCase().includes(filter);
-      };
-    });
-
+  }
+  ngOnInit() {
+    this.updateGridWithDataSource();
   }
 
   private convertFromAppLocationToLocationData(locationsInput: AppLocation[]): LocationData[] {
@@ -75,4 +75,34 @@ export class LocationListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  onAddLocation() {
+    let dialogRef = this.openLocationDialog(DialogModes.Add);
+    dialogRef.afterClosed().subscribe((location: AppLocation) => {
+      this.performAddLocation(location);
+    });
+  }
+
+  openLocationDialog(modeInput: DialogModes) {
+    const dialogRef = this._dialog.open(LocationFormDialogComponent, {
+      data: { locationName: '', locationCategory: '' , mode: modeInput },
+      width: '500px'
+    });
+    return dialogRef;
+  }
+  private performAddLocation(location: AppLocation) {
+    if (location) {
+      this._locationService.createLocation(location).subscribe((response: LocationResponse) => {
+        if (response.status) {
+          this.handleError(response.status, `Category ${location.category} not found!`);
+         return;
+        }
+        this.dataSource = new MatTableDataSource(this.convertFromAppLocationToLocationData(response.locations));
+        this.updateGridWithDataSource();
+      });
+    }
+  }
+
+  private handleError(status: LocationStatusEnum, parameter?: string) {
+    this._snackBarService.showSnackBar(status.replace('{0}', parameter));
+  }
 }

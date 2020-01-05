@@ -1,4 +1,4 @@
-import { LocationResponse } from './../../model/location-response';
+import { LocationResponse, LocationStatusEnum } from './../../model/location-response';
 import { LocationService } from 'src/app/services/location/location.service';
 import { CategoryService } from './../../services/category/category.service';
 
@@ -10,6 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Coordinate, AppLocation } from 'src/app/model/location';
 import { DialogModes } from 'src/app/model/dialog-modes';
 import { TranslateService } from '@ngx-translate/core';
+import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
 
 export interface LocationDialogData {
   locationName: string;
@@ -44,7 +45,8 @@ export class LocationFormDialogComponent implements OnInit {
     private _locationService: LocationService,
     private _dialogRef: MatDialogRef<LocationFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LocationDialogData,
-    private _translate: TranslateService) {
+    private _translate: TranslateService,
+    private _snackBarService: SnackBarService) {
     this.createForm();
     switch (data.mode) {
 
@@ -63,9 +65,9 @@ export class LocationFormDialogComponent implements OnInit {
   ngOnInit() {
 
     if (this.data.mode === DialogModes.Edit) {
-      this._locationService.getLocation(this.data.locationName, this.data.locationCategory).subscribe((response: LocationResponse) => {
+      this._locationService.getLocation(this.data.locationName).subscribe((response: LocationResponse) => {
         if (response.status) {
-          //TODO Should return message with status 
+          this.handleError(response.status, this.data.locationName);
           return;
         }
         const location = response.locations[0];
@@ -105,6 +107,10 @@ export class LocationFormDialogComponent implements OnInit {
   }
   onCancelClick(): void {
     this._dialogRef.close();
+  }
+
+  private handleError(status: LocationStatusEnum, parameter?: string) {
+    this._snackBarService.showSnackBar(status.replace('{0}', parameter));
   }
 
 }

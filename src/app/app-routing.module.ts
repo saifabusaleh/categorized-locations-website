@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate: [CategoryAuthGuardService]
   },
   {
-    path: 'location/:categoryName/:locationName',
+    path: 'location/:locationName',
     component: LocationViewComponent,
   },
   { path: '**', redirectTo: '/', pathMatch: 'full' }

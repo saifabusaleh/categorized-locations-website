@@ -1,6 +1,25 @@
+<app-toolbar>
+	<span slot-menu>
+		<button mat-menu-item (click)="onAddLocation()"> 
+			<mat-icon>add</mat-icon>
+			<span>{{'TOOLBAR.ADD' | translate}}</span>
+		</button>
+		<button mat-menu-item [disabled]="true">
+			<mat-icon>edit</mat-icon>
+			<span>{{'TOOLBAR.EDIT' | translate}}</span>
+		</button>
+		<button mat-menu-item [disabled]="true">
+			<mat-icon>delete</mat-icon>
+			<span>{{'TOOLBAR.DELETE' | translate}}</span>
+		</button>
+    </span>
+    <span slot-title>
+        {{'LOCATION_LIST.TITLE' | translate}}
+    </span>
+</app-toolbar>
 <div class="location-list-container">
     <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter By Category">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'LOCATION_LIST.FILTER_PLACEHOLDER' | translate}}">
     </mat-form-field>
 
 
@@ -9,7 +28,7 @@
         <!-- Location Name Column -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'LOCATION_LIST.COLUMN_NAME' | translate}}</th>
-            <td mat-cell *matCellDef="let element"> <a [routerLink]=" '/' +appPathsEnum.Location + '/' + element.categoryName + '/' + element.name">
+            <td mat-cell *matCellDef="let element"> <a [routerLink]=" '/' +appPathsEnum.Location + '/' + element.name">
                     {{element.name}}
                 </a>
             </td>
