@@ -10,12 +10,10 @@ import { Observable, of, Subject } from 'rxjs';
 export class CategoryService {
 
   private _categories: Map<string, Category>;
-  private categoriesSubject: Subject<Category[]>;
 
 
   constructor(private localStorageService: LocalStorageService) {
     this._categories = new Map();
-    this.categoriesSubject = new Subject<Category[]>();
   }
 
   public convertFromMapToArrayValues(map: Map<string, Category>): Category[] {
@@ -32,7 +30,6 @@ export class CategoryService {
     const categoriesArr = this.convertFromMapToArrayValues(categoriesMap);
     const categoriesResponse = new CategoryResponse();
     categoriesResponse.categories = categoriesArr;
-   // this.categoriesSubject.next(categoriesArr);
     return of(categoriesResponse);
   }
 
@@ -46,7 +43,6 @@ export class CategoryService {
     this._categories.set(category.categoryName, category);
     this.localStorageService.setCategories(this._categories);
     categoriesResponse.categories = this.convertFromMapToArrayValues(this._categories);
-    this.categoriesSubject.next(this.convertFromMapToArrayValues(this._categories));
     return of(categoriesResponse);
   }
 
@@ -62,7 +58,6 @@ export class CategoryService {
     } else {
       categoriesResponse.categories = [category];
     }
-    this.categoriesSubject.next(this.convertFromMapToArrayValues(this._categories));
     return of(categoriesResponse);
   }
 
@@ -78,7 +73,6 @@ export class CategoryService {
     this._categories.delete(categoryName); //remove old one
     this.localStorageService.setCategories(this._categories);
     categoriesResponse.categories = this.convertFromMapToArrayValues(this._categories);
-    this.categoriesSubject.next(this.convertFromMapToArrayValues(this._categories));
     return of(categoriesResponse);
   }
 
@@ -90,11 +84,6 @@ export class CategoryService {
     }
     this.localStorageService.setCategories(this._categories);
     categoriesResponse.categories = this.convertFromMapToArrayValues(this._categories);
-    this.categoriesSubject.next(this.convertFromMapToArrayValues(this._categories));
     return of(categoriesResponse);
-  }
-
-  public getCategoriesObservable(): Observable<Category[]> {
-    return this.categoriesSubject.asObservable();
   }
 }

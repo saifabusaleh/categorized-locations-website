@@ -12,10 +12,8 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 export class LocationService {
 
   private _locations: AppLocation[];
-  private locationsSubject: Subject<AppLocation[]>;
   constructor(private _categoryService: CategoryService,
     private localStorageService: LocalStorageService) {
-      this.locationsSubject = new Subject<AppLocation[]>();
       this._locations = [];
 
   }
@@ -76,9 +74,8 @@ export class LocationService {
     category.locations.push(location);
     this._locations.push(location);
     this.localStorageService.setCategories(categories);
-    this.locationsSubject.next(this._locations);
    // this._categoryService._categories = categories;
-    locationResponse.locations = [location];
+    locationResponse.locations = this._locations;
     return of(locationResponse);
   }
 
@@ -104,7 +101,6 @@ export class LocationService {
     this._locations[locationToUpdateIndex] = newLocation; 
     this.localStorageService.setCategories(categories);
     locationResponse.location = newLocation;
-    this.locationsSubject.next(this._locations);
     return of(locationResponse);
   }
 
@@ -128,11 +124,6 @@ export class LocationService {
     this._locations.splice(locationToDeleteIndex, 1);
     categories.set(targetCat.categoryName, targetCat);
     this.localStorageService.setCategories(categories);
-    this.locationsSubject.next(this._locations);
     return of(locationResponse);
-  }
-
-  public getLocationsObservable(): Observable<AppLocation[]> {
-    return this.locationsSubject.asObservable();
   }
 }
