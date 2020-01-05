@@ -35,6 +35,7 @@ export class CategoryService {
 
   public createCategory(category: Category): Observable<CategoryResponse> {
     const categoriesResponse = new CategoryResponse();
+    this._categories = this.localStorageService.getCategories();
     const categoryToAdd: Category = this._categories.get(category.categoryName);
     if (categoryToAdd) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_ALREADY_EXIST;
@@ -47,10 +48,11 @@ export class CategoryService {
   }
 
   public getCategoryByName(catName: string): Observable<CategoryResponse> {
-    if (!this._categories || this._categories.size === 0) {
-      // Handle the case when we are in refresh mode and the categories list is destroyed
-      this._categories = this.localStorageService.getCategories();
-    }
+    // if (!this._categories || this._categories.size === 0) {
+    //   // Handle the case when we are in refresh mode and the categories list is destroyed
+    //   this._categories = this.localStorageService.getCategories();
+    // }
+    this._categories = this.localStorageService.getCategories();
     const categoriesResponse = new CategoryResponse();
     const category: Category = this._categories.get(catName);
     if (!category) {
@@ -63,6 +65,7 @@ export class CategoryService {
 
   public updateCategoryName(categoryName: string, newCategoryName: string): Observable<CategoryResponse> {
     const categoriesResponse = new CategoryResponse();
+    this._categories = this.localStorageService.getCategories();
     const category: Category = this._categories.get(categoryName);
     if (!category) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
@@ -78,6 +81,7 @@ export class CategoryService {
 
   public deleteCategory(categoryName: string): Observable<CategoryResponse> {
     const categoriesResponse = new CategoryResponse();
+    this._categories = this.localStorageService.getCategories();
     if (!this._categories.delete(categoryName)) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
       return of(categoriesResponse);

@@ -14,7 +14,7 @@ export class LocationService {
   private _locations: AppLocation[];
   constructor(private _categoryService: CategoryService,
     private localStorageService: LocalStorageService) {
-      this._locations = [];
+    this._locations = [];
 
   }
 
@@ -36,25 +36,26 @@ export class LocationService {
     return of(locationResponse);
   }
 
-  public getLocation(locationName: string, categoryName: string): Observable<LocationResponse> {
+  public getLocation(locationName: string): Observable<LocationResponse> {
     const locationResponse = new LocationResponse();
-    const categories: Map<string, Category> = this.localStorageService.getCategories();
-    const targetCategory: Category = categories.get(categoryName);
-    if (!targetCategory) {
-      locationResponse.status = LocationStatusEnum.LOCATION_CATEGORY_NOT_FOUND;
-      return of(locationResponse);
-    }
+    const categories: Category[] = this._categoryService.convertFromMapToArrayValues(this.localStorageService.getCategories());
     let locationRes: AppLocation;
-    for (let location of targetCategory.locations) {
-      if (location.name === locationName) {
-        locationRes = location;
-        break;
+    for (let category of categories) {
+      if (category.locations) {
+        for (let location of category.locations) {
+          if (location.name === locationName) {
+            locationRes = location;
+            break;
+          }
+        }
       }
     }
+
     if (!locationRes) {
       locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND;
+    } else {
+      locationResponse.locations = [locationRes];
     }
-    locationResponse.locations = [locationRes];
     return of(locationResponse);
   }
 
@@ -74,7 +75,7 @@ export class LocationService {
     category.locations.push(location);
     this._locations.push(location);
     this.localStorageService.setCategories(categories);
-   // this._categoryService._categories = categories;
+    // this._categoryService._categories = categories;
     locationResponse.locations = this._locations;
     return of(locationResponse);
   }
@@ -98,7 +99,7 @@ export class LocationService {
     }
     categoryToUpdate.locations[locationToUpdateIndex] = newLocation;
     categories.set(categoryToUpdate.categoryName, categoryToUpdate);
-    this._locations[locationToUpdateIndex] = newLocation; 
+    this._locations[locationToUpdateIndex] = newLocation;
     this.localStorageService.setCategories(categories);
     locationResponse.location = newLocation;
     return of(locationResponse);
