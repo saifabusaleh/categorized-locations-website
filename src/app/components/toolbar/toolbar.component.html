@@ -5,15 +5,15 @@
 		<mat-menu #menu="matMenu">
 			<button mat-menu-item [disabled]="isAddDisabled" (click)="onAdd()"> 
 				<mat-icon>add</mat-icon>
-				<span>{{menuAdd}}</span>
+				<span>{{'TOOLBAR.ADD' | translate}}</span>
 			</button>
 			<button mat-menu-item [disabled]="isEditDisabled" (click)="onEdit()">
 				<mat-icon>edit</mat-icon>
-				<span>{{menuEdit}}</span>
+				<span>{{'TOOLBAR.EDIT' | translate}}</span>
 			</button>
 			<button mat-menu-item [disabled]="isDeleteDisabled" (click)="onDelete()">
 				<mat-icon>delete</mat-icon>
-				<span>{{menuDelete}}</span>
+				<span>{{'TOOLBAR.DELETE' | translate}}</span>
 			</button>
 		</mat-menu>
 		<div fxLayoutAlign="start center" fxFlex="1 1 95%" >{{title}} </div>

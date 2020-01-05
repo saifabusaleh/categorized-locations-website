@@ -1,0 +1,43 @@
+{
+  "HOME": {
+    "TITLE": "Hello Angular with ngx-translate!"
+  },
+  "TOOLBAR": {
+    "ADD": "Add",
+    "EDIT": "Edit",
+    "DELETE": "Delete"
+  },
+  "BOTTOM_MENU": {
+    "CATEGORIES": "Categories",
+    "LOCATIONS": "Locations"
+  },
+  "CATEGORIES_LIST": {
+    "CATEGORIES_HEADER": "Categories"
+  },
+  "CATEGORY_DIALOG": {
+    "NEW_TITLE": "Add Category",
+    "EDIT_TITLE": "Edit Category",
+    "CONTENT": "What is the category name?",
+    "ADD_TEXT": "Add",
+    "EDIT_TEXT": "Edit",
+    "CLOSE_TEXT": "Close"
+  },
+  "LOCATION_DIALOG": {
+    "PICK_CATEGORY": "Pick category:",
+    "NO_CATEGORIES_FOUND": "No Categories found!",
+    "CANCEL": "Cancel",
+    "ADD_LOCATION": "Add Location",
+    "EDIT_LOCATION": "Edit Location"
+  },
+  
+  "LOCATION_LIST": {
+    "COLUMN_NAME": "Name",
+    "COLUMN_ADDRESS": "Address",
+    "COLUMN_CATEGORY_NAME": "Category Name"
+  },
+  "LOCATION_VIEW": {
+    "NAME_LABEL": "Name:",
+    "ADDRESS_LABEL": "Address:",
+    "CATEGORY_LABEL": "Category:"
+  }
+}

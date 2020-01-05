@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 
 
@@ -7,24 +8,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
 
-  constructor() {
-    //
+  constructor(public translate: TranslateService) {
+    translate.addLangs(['en']);
+    translate.setDefaultLang('en');
   }
-
-  ngOnInit(): void {
-
-    let map: Map<string, string> = new Map();
-    map.set('1','2');
-    map.set('2','1');
-
-    localStorage.map =  JSON.stringify(Array.from(map.entries()));
-
-    let oooo = new Map(JSON.parse(localStorage.getItem('map')));
-
- //
-  }
-
 }

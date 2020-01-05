@@ -1,6 +1,7 @@
 import { DialogModes } from './../../model/dialog-modes';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface CategoryDialogData {
   categoryName: string;
@@ -14,28 +15,24 @@ export interface CategoryDialogData {
 })
 export class CategoryDialog {
 
-  closeButtonText: string = 'Close';
 
   addOrEditButtonText: string;
 
   title: string;
-  newTitle: string = 'Add Category';
-
-  editTitle: string = 'Edit Category';
-  content: string = 'What is the category name?';
 
   constructor(
     private dialogRef: MatDialogRef<CategoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: CategoryDialogData) {
+    @Inject(MAT_DIALOG_DATA) public data: CategoryDialogData,
+    private _translate: TranslateService) {
     switch (data.mode) {
       case DialogModes.Add:
-        this.title = this.newTitle;
-        this.addOrEditButtonText = 'Add';
+        this.title = this._translate.instant('CATEGORY_DIALOG.NEW_TITLE');
+        this.addOrEditButtonText = this._translate.instant('CATEGORY_DIALOG.ADD_TEXT');
         break;
 
       case DialogModes.Edit:
-        this.title = this.editTitle;
-        this.addOrEditButtonText = 'Edit';
+        this.title = this._translate.instant('CATEGORY_DIALOG.EDIT_TITLE');
+        this.addOrEditButtonText = this._translate.instant('CATEGORY_DIALOG.EDIT_TEXT');
         break;
     }
   }

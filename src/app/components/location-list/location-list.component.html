@@ -8,7 +8,7 @@
 
         <!-- Location Name Column -->
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columnName}} </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'LOCATION_LIST.COLUMN_NAME' | translate}}</th>
             <td mat-cell *matCellDef="let element"> <a [routerLink]=" '/' +appPathsEnum.Location + '/' + element.categoryName + '/' + element.name">
                     {{element.name}}
                 </a>
@@ -16,12 +16,12 @@
         </ng-container>
 
         <ng-container matColumnDef="address">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columnAddress}} </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'LOCATION_LIST.COLUMN_ADDRESS' | translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.address}} </td>
         </ng-container>
 
         <ng-container matColumnDef="categoryName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columnCategoryName}} </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'LOCATION_LIST.COLUMN_CATEGORY_NAME' | translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
         </ng-container>
 

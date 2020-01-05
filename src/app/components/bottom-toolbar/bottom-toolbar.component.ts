@@ -9,8 +9,6 @@ import { AppPaths } from 'src/app/model/app-paths';
 })
 export class BottomToolbarComponent implements OnInit {
 
-  categoriesText = 'Categories';
-  locationsText = 'Locations';
   constructor(private _router: Router) { 
     //
   }

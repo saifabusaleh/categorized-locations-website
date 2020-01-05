@@ -9,6 +9,7 @@ import { CategoryResponse } from 'src/app/model/category.response';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Coordinate, AppLocation } from 'src/app/model/location';
 import { DialogModes } from 'src/app/model/dialog-modes';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface LocationDialogData {
   locationName: string;
@@ -20,13 +21,12 @@ export interface LocationDialogData {
 
 @Component({
   selector: 'app-location-form',
-  templateUrl: './location-form.component.html',
-  styleUrls: ['./location-form.component.scss']
+  templateUrl: './location-form-dialog.component.html',
+  styleUrls: ['./location-form-dialog.component.scss']
 })
-export class LocationFormComponent implements OnInit {
+export class LocationFormDialogComponent implements OnInit {
 
   confirmation: string;
-  cancel: string = 'Cancel';
   latitude = 32;
   longitude = 34.78;
 
@@ -42,16 +42,17 @@ export class LocationFormComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
     private _categoryService: CategoryService,
     private _locationService: LocationService,
-    private _dialogRef: MatDialogRef<LocationFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LocationDialogData) {
+    private _dialogRef: MatDialogRef<LocationFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: LocationDialogData,
+    private _translate: TranslateService) {
     this.createForm();
     switch (data.mode) {
 
       case DialogModes.Add:
-        this.confirmation = 'Add Location';
+        this.confirmation = this._translate.instant('LOCATION_DIALOG.ADD_LOCATION');
         break;
       case DialogModes.Edit:
-        this.confirmation = 'Edit Location';
+        this.confirmation = this._translate.instant('LOCATION_DIALOG.EDIT_LOCATION');
         break;
     }
     this._categoryService.getCategories().subscribe((response: CategoryResponse) => {

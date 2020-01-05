@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
-  <p>{{content}}</p>
+  <p>{{'CATEGORY_DIALOG.CONTENT' | translate}}</p>
   <mat-form-field>
     <input matInput [(ngModel)]="data.categoryName">
   </mat-form-field>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-evenly start"  mat-dialog-actions>
   <button mat-button [mat-dialog-close]="data.categoryName" cdkFocusInitial>{{addOrEditButtonText}}</button>
-  <button mat-button (click)="onCloseClick()">{{closeButtonText}}</button>
+  <button mat-button (click)="onCloseClick()">{{'CATEGORY_DIALOG.CLOSE_TEXT' | translate}}</button>
 </div>

@@ -1,6 +1,5 @@
 import { LocationStatusEnum, LocationResponse } from './../../model/location-response';
 import { LocationService } from './../../services/location/location.service';
-import { LocationFormComponent } from './../location-form/location-form.component';
 import { DialogModes } from './../../model/dialog-modes';
 import { AppPaths } from './../../model/app-paths';
 import { Component, OnInit } from '@angular/core';
@@ -13,6 +12,7 @@ import { CategoryResponse, CategoryStatusEnum } from 'src/app/model/category.res
 import { CategoryService } from 'src/app/services/category/category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppLocation } from 'src/app/model/location';
+import { LocationFormDialogComponent } from 'src/app/dialogs/location-form-dialog/location-form-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -30,14 +30,6 @@ export class ToolbarComponent implements OnInit {
 
 
   title = '';
-
-
-
-  menuAdd = 'Add';
-  menuEdit = 'Edit';
-
-  menuDelete = 'Delete';
-
   currentLocationOrCategoryName = '';
 
   CurrentContext: Context;
@@ -170,7 +162,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   openLocationDialog(modeInput: DialogModes) {
-    const dialogRef = this._dialog.open(LocationFormComponent, {
+    const dialogRef = this._dialog.open(LocationFormDialogComponent, {
       data: { locationName: this.currentLocationOrCategoryName, locationCategory: this.urlSegments[2] , mode: modeInput },
       width: '500px'
     });

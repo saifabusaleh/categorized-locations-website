@@ -1,15 +1,15 @@
 <div class="location-view-container">
     <div fxLayout="column" fxLayoutAlign="start start">
         <label>
-            Name: {{location.name}}
+            {{'LOCATION_VIEW.NAME_LABEL' | translate}} {{location.name}}
         </label>
 
         <label>
-            Address: {{location.address}}
+            {{'LOCATION_VIEW.ADDRESS_LABEL' | translate}} {{location.address}}
         </label>
 
         <label>
-            Category: {{location.category}}
+            {{'LOCATION_VIEW.CATEGORY_LABEL' | translate}} {{location.category}}
         </label>
 
         <agm-map [latitude]='latitude' [longitude]='longitude'>

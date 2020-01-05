@@ -1,5 +1,5 @@
 <mat-nav-list #categoriesList>
-	<h3 matSubheader>{{categoriesHeader}}</h3>
+	<h3 matSubheader>{{'CATEGORIES_LIST.CATEGORIES_HEADER' | translate}}</h3>
 	<mat-divider></mat-divider>
 	<div *ngFor="let category of categories">
 		<a mat-list-item [routerLink]=" appPathsEnum.CategoryDetails + '/' +category.categoryName">

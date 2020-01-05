@@ -29,9 +29,17 @@ import { CategoryDetailComponent } from './components/category-detail/category-d
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LocationListComponent } from './components/location-list/location-list.component';
-import { LocationFormComponent } from './components/location-form/location-form.component';
 import { BottomToolbarComponent } from './components/bottom-toolbar/bottom-toolbar.component';
 import { LocationViewComponent } from './components/location-view/location-view.component';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { LocationFormDialogComponent } from './dialogs/location-form-dialog/location-form-dialog.component';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 @NgModule({
   declarations: [
@@ -41,7 +49,7 @@ import { LocationViewComponent } from './components/location-view/location-view.
     CategoryDetailComponent,
     ToolbarComponent,
     LocationListComponent,
-    LocationFormComponent,
+    LocationFormDialogComponent,
     BottomToolbarComponent,
     LocationViewComponent
   ],
@@ -68,11 +76,19 @@ import { LocationViewComponent } from './components/location-view/location-view.
     ReactiveFormsModule,
     FlexLayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: // API KEY REMOVED FROM GITHUB
+      apiKey: 'AIzaSyACCrhxPECAdny-D4CO5R6hG_Vo8vjHmR8'
+    }),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+      deps: [HttpClient]
+    }
     })
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [CategoryDialog, LocationFormComponent]
+  entryComponents: [CategoryDialog, LocationFormDialogComponent]
 })
 export class AppModule { }

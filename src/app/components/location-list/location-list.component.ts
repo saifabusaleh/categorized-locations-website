@@ -5,7 +5,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationResponse } from 'src/app/model/location-response';
-import { RouterEvent, Router, NavigationEnd } from '@angular/router';
 export interface LocationData {
   name: string;
   address: string;
@@ -30,9 +29,6 @@ export class LocationListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'address', 'categoryName'];
 
-  columnName: string = 'Name';
-  columnAddress: string = 'Address';
-  columnCategoryName: string = 'Category Name';
   constructor(private _locationService: LocationService) {
 
     this._locationService.getLocations().subscribe((response: LocationResponse) => {

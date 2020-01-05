@@ -15,7 +15,6 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   subscription: Subscription;
 
-  categoriesHeader: string = 'Categories';
 
   appPathsEnum = AppPaths;
   constructor(private _categoryService: CategoryService) {

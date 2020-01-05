@@ -1,5 +1,4 @@
 import { LocationViewComponent } from './components/location-view/location-view.component';
-import { LocationFormComponent } from './components/location-form/location-form.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
