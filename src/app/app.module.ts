@@ -21,6 +21,8 @@ import {MatCardModule} from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 import { CategoryDialog } from './dialogs/category-dialog/category-dialog';
 import { FormsModule } from '@angular/forms';
@@ -72,6 +74,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatCardModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,

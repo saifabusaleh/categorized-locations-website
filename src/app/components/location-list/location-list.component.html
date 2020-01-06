@@ -18,12 +18,13 @@
     </span>
 </app-toolbar>
 <div class="location-list-container">
+    <mat-slide-toggle (change)="onToggleChange($event.checked)">{{'LOCATION_LIST.GROUP_BY_TOGGLE' | translate}}</mat-slide-toggle>
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'LOCATION_LIST.FILTER_PLACEHOLDER' | translate}}">
     </mat-form-field>
 
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)= "onSortData($event)">
 
         <!-- Location Name Column -->
         <ng-container matColumnDef="name">
@@ -46,6 +47,16 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+        	<!-- Group header -->
+	<ng-container matColumnDef="groupHeader">
+		<td colspan="999" mat-cell *matCellDef="let group">
+			<strong>{{groupByColumns[group.level-1]}} = {{group[groupByColumns[group.level-1]]}}</strong> 
+      </td>
+  </ng-container>
+
+  <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup"> </tr>
 
     </table>
 </div>
