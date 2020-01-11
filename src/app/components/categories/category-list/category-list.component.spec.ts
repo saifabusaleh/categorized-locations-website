@@ -1,4 +1,4 @@
-import { CategoryService } from './../../services/category/category.service';
+import { CategoryService } from '../../../services/category/category.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CategoryListComponent } from './category-list.component';

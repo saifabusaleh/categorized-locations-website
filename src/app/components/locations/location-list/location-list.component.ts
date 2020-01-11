@@ -1,13 +1,13 @@
-import { LocationStatusEnum } from './../../model/location-response';
-import { AppPaths } from './../../model/app-paths';
-import { LocationService } from './../../services/location/location.service';
-import { AppLocation } from './../../model/location';
+import { LocationStatusEnum } from '../../../model/location-response';
+import { AppPaths } from '../../../model/app-paths';
+import { LocationService } from '../../../services/location/location.service';
+import { AppLocation } from '../../../model/location';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationResponse } from 'src/app/model/location-response';
 import { DialogModes } from 'src/app/model/dialog-modes';
-import { LocationFormDialogComponent } from 'src/app/dialogs/location-form-dialog/location-form-dialog.component';
+import { LocationFormDialogComponent } from 'src/app/components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
 export interface LocationData {
@@ -233,7 +233,11 @@ export class LocationListComponent implements OnInit {
         }
       });
     }
-    this.dataSource.data = this.addGroups(data, this.groupByColumns);
+    if(this._isInGroupingMode) {
+      this.dataSource.data = this.addGroups(data, this.groupByColumns);
+    } else {
+      this.dataSource.data = data;
+    }
   }
 
   private compare(a, b, isAsc) {

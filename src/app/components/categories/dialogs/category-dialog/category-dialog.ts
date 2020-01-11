@@ -1,4 +1,4 @@
-import { DialogModes } from './../../model/dialog-modes';
+import { DialogModes } from '../../../../model/dialog-modes';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';

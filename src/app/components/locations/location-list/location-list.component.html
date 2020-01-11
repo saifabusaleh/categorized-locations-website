@@ -29,7 +29,7 @@
         <!-- Location Name Column -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'LOCATION_LIST.COLUMN_NAME' | translate}}</th>
-            <td mat-cell *matCellDef="let element"> <a [routerLink]=" '/' +appPathsEnum.Location + '/' + element.name">
+            <td mat-cell *matCellDef="let element"> <a [routerLink]=" '/' +appPathsEnum.Locations + '/' + element.name">
                     {{element.name}}
                 </a>
             </td>

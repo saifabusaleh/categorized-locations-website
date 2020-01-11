@@ -18,7 +18,7 @@ export class BottomToolbarComponent implements OnInit {
   }
 
   goToCategories() {
-    this._router.navigate(['/'], { replaceUrl: true });
+    this._router.navigate(['/'+ AppPaths.Categories], { replaceUrl: true });
 
   }
 

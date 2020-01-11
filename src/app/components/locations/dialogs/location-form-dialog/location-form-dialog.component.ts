@@ -1,6 +1,6 @@
-import { LocationResponse, LocationStatusEnum } from './../../model/location-response';
+import { LocationResponse, LocationStatusEnum } from '../../../../model/location-response';
 import { LocationService } from 'src/app/services/location/location.service';
-import { CategoryService } from './../../services/category/category.service';
+import { CategoryService } from '../../../../services/category/category.service';
 
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
