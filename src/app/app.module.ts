@@ -27,7 +27,6 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CategoryDialog } from './dialogs/category-dialog/category-dialog';
 import { FormsModule } from '@angular/forms';
 import { CategoryListComponent } from './components/category-list/category-list.component';
-import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LocationListComponent } from './components/location-list/location-list.component';
@@ -48,7 +47,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppComponent,
     CategoryDialog,
     CategoryListComponent,
-    CategoryDetailComponent,
     ToolbarComponent,
     LocationListComponent,
     LocationFormDialogComponent,

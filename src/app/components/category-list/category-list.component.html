@@ -1,31 +1,30 @@
 <app-toolbar>
 	<span slot-menu>
-		<button mat-menu-item (click)="onAddCategory()"> 
+		<button mat-menu-item [disabled]="selectedCategoryName" (click)="onAddCategory()">
 			<mat-icon>add</mat-icon>
 			<span>{{'TOOLBAR.ADD' | translate}}</span>
 		</button>
-		<button mat-menu-item [disabled]="true">
+		<button mat-menu-item [disabled]="!selectedCategoryName" (click)="onEditCategory()">
 			<mat-icon>edit</mat-icon>
 			<span>{{'TOOLBAR.EDIT' | translate}}</span>
 		</button>
-		<button mat-menu-item [disabled]="true">
+		<button mat-menu-item [disabled]="!selectedCategoryName" (click)="onDeleteCategory()">
 			<mat-icon>delete</mat-icon>
 			<span>{{'TOOLBAR.DELETE' | translate}}</span>
 		</button>
 	</span>
 	<span slot-title>
-        {{'CATEGORIES_LIST.TITLE' | translate}}
-    </span>
+		{{'CATEGORIES_LIST.TITLE' | translate}}
+	</span>
 </app-toolbar>
 
-<mat-nav-list #categoriesList>
-	<h3 matSubheader>{{'CATEGORIES_LIST.CATEGORIES_HEADER' | translate}}</h3>
-	<mat-divider></mat-divider>
-	<div *ngFor="let category of categories">
-		<a mat-list-item [routerLink]=" appPathsEnum.CategoryDetails + '/' +category.categoryName">
-			<h4 mat-line>{{category.categoryName}}</h4>
-		</a>
-		<mat-divider></mat-divider>
 
-	</div>
-</mat-nav-list>
+<mat-list role="list">
+	<mat-list-item role="listitem" *ngFor="let category of categories">
+		<mat-radio-button color="primary" [value]="category.categoryName" (change)="onSelectionChange($event)">
+			{{category.categoryName}}
+		</mat-radio-button>
+		<mat-divider></mat-divider>
+	</mat-list-item>
+
+</mat-list>

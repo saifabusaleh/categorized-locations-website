@@ -1,13 +1,14 @@
 import { SnackBarService } from './../../services/snack-bar/snack-bar.service';
 import { Category } from './../../model/category';
 import { AppPaths } from './../../model/app-paths';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { CategoryResponse, CategoryStatusEnum } from 'src/app/model/category.response';
 import { Subscription } from 'rxjs';
 import { DialogModes } from 'src/app/model/dialog-modes';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialog } from 'src/app/dialogs/category-dialog/category-dialog';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-category-list',
@@ -16,6 +17,8 @@ import { CategoryDialog } from 'src/app/dialogs/category-dialog/category-dialog'
 })
 export class CategoryListComponent {
 
+
+  selectedCategoryName: string;
   categories: Category[] = [];
   subscription: Subscription;
 
@@ -57,7 +60,50 @@ export class CategoryListComponent {
     }
   }
 
+  onEditCategory() {
+    let dialogRef = this.openCategoryDialog(DialogModes.Edit);
+    dialogRef.afterClosed().subscribe(categoryName => {
+      this.performUpdateCategory(categoryName);
+    });
+  }
+
+  onDeleteCategory() {
+    this.performDeleteCategory();
+  }
+
+  private performUpdateCategory(newCategoryName: string) {
+    if (newCategoryName) {
+      this._categoryService.updateCategoryName(this.selectedCategoryName, newCategoryName).subscribe((response: CategoryResponse) => {
+        if (response.status) {
+          this.handleError(response.status, this.selectedCategoryName);
+          return;
+        }
+        this.updateDataSource(response.categories);
+      });
+    }
+  }
+
+  private performDeleteCategory() {
+
+    this._categoryService.deleteCategory(this.selectedCategoryName).subscribe((response: CategoryResponse) => {
+      if (response.status) {
+         this.handleError(response.status, this.selectedCategoryName);
+        return;
+      }
+      this.updateDataSource(response.categories);
+    });
+  }
+
+  private updateDataSource(categories: Category[]) {
+    this.categories = categories;
+    this.selectedCategoryName = undefined;
+  }
+
   private handleError(status: CategoryStatusEnum, parameter?: string) {
     this._snackBarService.showSnackBar(status.replace('{0}', parameter));
+  }
+
+  onSelectionChange(event: MatRadioChange) {
+    this.selectedCategoryName = event.value;
   }
 }
