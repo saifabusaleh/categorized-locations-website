@@ -9,11 +9,11 @@ Run `npm run start:dev` to debug locally
 
 **Features**:
 * Developed with Angular 8 + Typescript.
-* CRUD application of categories.
-* categories is saved into local storage.
+* CRUD application that is is saved into local storage.
 * Use of angular material + flex layout.
 * Use of RxJs(reactive programming).
 * Use of agm-map library(google maps).
+* Use of feature lazy loading.
 
 Images:
 
