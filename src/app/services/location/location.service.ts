@@ -1,10 +1,10 @@
 import { LocationResponse, LocationStatusEnum } from './../../model/location-response';
-import { CategoryService } from 'src/app/services/category/category.service';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { AppLocation } from 'src/app/model/location';
 import { Category } from 'src/app/model/category';
 import { LocalStorageService } from '../local-storage/local-storage.service';
+import { UtilsService } from '../utils/utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 export class LocationService {
 
   private _locations: AppLocation[];
-  constructor(private _categoryService: CategoryService,
+  constructor(private _utilsService: UtilsService,
     private localStorageService: LocalStorageService) {
     this._locations = [];
 
@@ -20,7 +20,7 @@ export class LocationService {
 
   public getLocations(): Observable<LocationResponse> {
     const locationResponse = new LocationResponse();
-    const categories: Category[] = this._categoryService.convertFromMapToArrayValues(this.localStorageService.getCategories());
+    const categories: Category[] = this._utilsService.convertFromMapToArrayValues(this.localStorageService.getCategories());
     let locations: AppLocation[] = [];
     if (categories) {
       categories.forEach((category: Category) => {
@@ -38,7 +38,7 @@ export class LocationService {
 
   public getLocation(locationName: string): Observable<LocationResponse> {
     const locationResponse = new LocationResponse();
-    const categories: Category[] = this._categoryService.convertFromMapToArrayValues(this.localStorageService.getCategories());
+    const categories: Category[] = this._utilsService.convertFromMapToArrayValues(this.localStorageService.getCategories());
     let locationRes: AppLocation;
     for (let category of categories) {
       if (category.locations) {
@@ -75,7 +75,6 @@ export class LocationService {
     category.locations.push(location);
     this._locations.push(location);
     this.localStorageService.setCategories(categories);
-    // this._categoryService._categories = categories;
     locationResponse.locations = this._locations;
     return of(locationResponse);
   }

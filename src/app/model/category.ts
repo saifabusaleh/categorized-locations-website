@@ -21,4 +21,6 @@ export class Category {
     set locations(locations: AppLocation[]) {
         this._locations = locations;
     }
+
+    
 }

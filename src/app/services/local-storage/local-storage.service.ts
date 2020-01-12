@@ -20,9 +20,6 @@ export class LocalStorageService {
 
   public getCategories(): Map<string, Category> {
     const categoriesMap: Map<string, Category> =  new Map(JSON.parse(localStorage.getItem(this.CATEGORIES_LOCAL_STORAGE_KEY)));
-
-
-
     return categoriesMap ? this.parseToCategoryType(categoriesMap) : undefined;
   }
 

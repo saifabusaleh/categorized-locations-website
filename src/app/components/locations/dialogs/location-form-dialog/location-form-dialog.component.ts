@@ -40,7 +40,7 @@ export class LocationFormDialogComponent implements OnInit {
   selectedCategoryName: string;
 
   locationForm: FormGroup;
-  constructor(private _formBuilder: FormBuilder,
+constructor(private _formBuilder: FormBuilder,
     private _categoryService: CategoryService,
     private _locationService: LocationService,
     private _dialogRef: MatDialogRef<LocationFormDialogComponent>,
