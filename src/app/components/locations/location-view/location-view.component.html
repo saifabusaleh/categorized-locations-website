@@ -1,40 +1,43 @@
 <app-toolbar>
-	<span slot-menu>
-		<button mat-menu-item [disabled]="true"> 
-			<mat-icon>add</mat-icon>
-			<span>{{'TOOLBAR.ADD' | translate}}</span>
-		</button>
-		<button mat-menu-item (click)="onEditLocation()">
-			<mat-icon>edit</mat-icon>
-			<span>{{'TOOLBAR.EDIT' | translate}}</span>
-		</button>
-		<button mat-menu-item (click)="onDeleteLocation()">
-			<mat-icon>delete</mat-icon>
-			<span>{{'TOOLBAR.DELETE' | translate}}</span>
-		</button>
+    <span slot-menu>
+        <button mat-menu-item [disabled]="true">
+            <mat-icon>add</mat-icon>
+            <span>{{'TOOLBAR.ADD' | translate}}</span>
+        </button>
+        <button mat-menu-item (click)="onEditLocation()">
+            <mat-icon>edit</mat-icon>
+            <span>{{'TOOLBAR.EDIT' | translate}}</span>
+        </button>
+        <button mat-menu-item (click)="onDeleteLocation()">
+            <mat-icon>delete</mat-icon>
+            <span>{{'TOOLBAR.DELETE' | translate}}</span>
+        </button>
     </span>
     <span slot-title>
         {{locationName}}
     </span>
 </app-toolbar>
-<div class="location-view-container">
-    <div fxLayout="column" fxLayoutAlign="start start">
-        <label>
+
+<div class="location-view-container" fxLayout="column" fxLayoutAlign="start stretch">
+
+    <div fxFlex="0 0 7%" fxLayout="column wrap">
+        <div>
             {{'LOCATION_VIEW.NAME_LABEL' | translate}} {{location.name}}
-        </label>
+        </div>
 
-        <label>
+        <div>
             {{'LOCATION_VIEW.ADDRESS_LABEL' | translate}} {{location.address}}
-        </label>
+        </div>
 
-        <label>
+        <div>
             {{'LOCATION_VIEW.CATEGORY_LABEL' | translate}} {{location.category}}
-        </label>
+        </div>
 
-        <agm-map [latitude]='latitude' [longitude]='longitude'>
-            <agm-marker [latitude]='latitude' [longitude]='longitude' [markerDraggable]='true'>
-            </agm-marker>
-        </agm-map>
     </div>
 
+
+    <agm-map fxFlex="0 0 93%" style="height: 100%" [latitude]='latitude' [longitude]='longitude'>
+        <agm-marker [latitude]='latitude' [longitude]='longitude' [markerDraggable]='true'>
+        </agm-marker>
+    </agm-map>
 </div>
