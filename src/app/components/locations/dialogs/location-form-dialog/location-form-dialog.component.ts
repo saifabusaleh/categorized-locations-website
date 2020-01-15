@@ -1,16 +1,16 @@
-import { LocationResponse, LocationStatusEnum } from '../../../../model/location-response';
-import { LocationService } from 'src/app/services/location/location.service';
-import { CategoryService } from '../../../../services/category/category.service';
+import { LocationResponse, LocationStatusEnum } from '@models/location-response';
+import { LocationService } from '@services/location/location.service';
+import { CategoryService } from '@services/category/category.service';
 
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { Category } from 'src/app/model/category';
-import { CategoryResponse } from 'src/app/model/category.response';
+import { Category } from '@models/category';
+import { CategoryResponse } from '@models/category.response';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Coordinate, AppLocation } from 'src/app/model/location';
-import { DialogModes } from 'src/app/model/dialog-modes';
+import { Coordinate, AppLocation } from '@models/location';
+import { DialogModes } from '@models/dialog-modes';
 import { TranslateService } from '@ngx-translate/core';
-import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
+import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 
 export interface LocationDialogData {
   locationName: string;

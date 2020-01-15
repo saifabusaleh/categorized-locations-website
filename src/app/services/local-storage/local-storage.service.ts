@@ -1,6 +1,6 @@
-import { Category } from './../../model/category';
-import { Coordinate } from 'src/app/model/location';
-import { AppLocation } from './../../model/location';
+import { Category } from '@models/category';
+import { Coordinate } from '@models/location';
+import { AppLocation } from '@models/location';
 import { Injectable } from '@angular/core';
 
 @Injectable({

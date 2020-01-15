@@ -1,13 +1,13 @@
-import { LocationResponse, LocationStatusEnum } from '../../../model/location-response';
+import { LocationResponse, LocationStatusEnum } from '@models/location-response';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocationService } from 'src/app/services/location/location.service';
-import { AppLocation } from 'src/app/model/location';
-import { DialogModes } from 'src/app/model/dialog-modes';
-import { AppPaths } from 'src/app/model/app-paths';
+import { LocationService } from '@services/location/location.service';
+import { AppLocation } from '@models/location';
+import { DialogModes } from '@models/dialog-modes';
+import { AppPaths } from '@models/app-paths';
 import { MatDialog } from '@angular/material/dialog';
-import { LocationFormDialogComponent } from 'src/app/components/locations/dialogs/location-form-dialog/location-form-dialog.component';
-import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
+import { SnackBarService } from '@services/snack-bar/snack-bar.service';
+import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 
 @Component({
   selector: 'app-location-view',

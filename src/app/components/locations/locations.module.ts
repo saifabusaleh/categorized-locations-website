@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LocationsRoutingModule } from './locations-routing.module';
-import { LocationListComponent } from './location-list/location-list.component';
-import { LocationFormDialogComponent } from './dialogs/location-form-dialog/location-form-dialog.component';
-import { LocationViewComponent } from './location-view/location-view.component';
+import { LocationListComponent } from '@components/locations/location-list/location-list.component';
+import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
+import { LocationViewComponent } from '@components/locations/location-view/location-view.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';

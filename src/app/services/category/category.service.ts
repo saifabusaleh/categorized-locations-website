@@ -1,9 +1,9 @@
-import { Category } from './../../model/category';
-import { CategoryResponse, CategoryStatusEnum } from '../../model/category.response';
-import { LocalStorageService } from '../local-storage/local-storage.service';
+import { Category } from '@models/category';
+import { CategoryResponse, CategoryStatusEnum } from '@models/category.response';
+import { LocalStorageService } from '@services/local-storage/local-storage.service';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { UtilsService } from '../utils/utils.service';
+import { UtilsService } from '@services/utils/utils.service';
 
 @Injectable({
   providedIn: 'root'

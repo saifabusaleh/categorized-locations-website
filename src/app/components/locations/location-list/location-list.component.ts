@@ -1,15 +1,15 @@
-import { LocationStatusEnum } from '../../../model/location-response';
-import { AppPaths } from '../../../model/app-paths';
-import { LocationService } from '../../../services/location/location.service';
-import { AppLocation } from '../../../model/location';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { LocationStatusEnum } from '@models/location-response';
+import { AppPaths } from '@models/app-paths';
+import { LocationService } from '@services/location/location.service';
+import { AppLocation } from '@models/location';
+import { Component, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { LocationResponse } from 'src/app/model/location-response';
-import { DialogModes } from 'src/app/model/dialog-modes';
-import { LocationFormDialogComponent } from 'src/app/components/locations/dialogs/location-form-dialog/location-form-dialog.component';
+import { LocationResponse } from '@models/location-response';
+import { DialogModes } from '@models/dialog-modes';
+import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
+import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 export interface LocationData {
   name: string;
   address: string;
