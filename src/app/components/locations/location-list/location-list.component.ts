@@ -2,7 +2,7 @@ import { LocationStatusEnum } from '@models/location-response';
 import { AppPaths } from '@models/app-paths';
 import { LocationService } from '@services/location/location.service';
 import { AppLocation } from '@models/location';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationResponse } from '@models/location-response';
@@ -10,13 +10,14 @@ import { DialogModes } from '@models/dialog-modes';
 import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
-export interface LocationData {
+import { Subscription } from 'rxjs';
+interface LocationData {
   name: string;
   address: string;
   categoryName: string;
 }
 
-export class Group {
+class Group {
 
   level: number = 0;
   parent: Group;
@@ -31,7 +32,7 @@ export class Group {
   templateUrl: './location-list.component.html',
   styleUrls: ['./location-list.component.scss']
 })
-export class LocationListComponent implements OnInit {
+export class LocationListComponent implements OnInit, OnDestroy {
 
   appPathsEnum = AppPaths;
 
@@ -45,15 +46,24 @@ export class LocationListComponent implements OnInit {
 
   private _locations: LocationData[];
 
+  private _subscription: Subscription;
 
   constructor(private _locationService: LocationService,
     private _dialog: MatDialog,
     private _snackBarService: SnackBarService) {
     this._locations = [];
-    this._locationService.getLocations().subscribe((response: LocationResponse) => {
+    this._subscription = this._locationService.getLocations().subscribe((response: LocationResponse) => {
       this._locations = this.convertFromAppLocationToLocationData(response.locations);
       this.dataSource = new MatTableDataSource(this._locations);
     });
+  }
+
+  ngOnInit() {
+    this.updateGridWithDataSource();
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
 
@@ -64,9 +74,8 @@ export class LocationListComponent implements OnInit {
       return data.categoryName.toLowerCase().includes(filter);
     };
   }
-  ngOnInit() {
-    this.updateGridWithDataSource();
-  }
+
+
 
   private convertFromAppLocationToLocationData(locationsInput: AppLocation[]): LocationData[] {
     let res: LocationData[] = [];
@@ -233,7 +242,7 @@ export class LocationListComponent implements OnInit {
         }
       });
     }
-    if(this._isInGroupingMode) {
+    if (this._isInGroupingMode) {
       this.dataSource.data = this.addGroups(data, this.groupByColumns);
     } else {
       this.dataSource.data = data;

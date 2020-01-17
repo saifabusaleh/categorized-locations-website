@@ -1,7 +1,7 @@
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 import { Category } from '@models/category';
 import { AppPaths } from '@models/app-paths';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CategoryService } from '@services/category/category.service';
 import { CategoryResponse, CategoryStatusEnum } from '@models/category.response';
 import { Subscription } from 'rxjs';
@@ -15,21 +15,26 @@ import { MatRadioChange } from '@angular/material/radio';
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.scss']
 })
-export class CategoryListComponent {
+export class CategoryListComponent implements OnDestroy{
+  appPathsEnum = AppPaths;
 
 
   selectedCategoryName: string;
   categories: Category[] = [];
-  subscription: Subscription;
+  private _subscription: Subscription;
 
 
-  appPathsEnum = AppPaths;
+
   constructor(private _categoryService: CategoryService,
               private _dialog: MatDialog,
               private _snackBarService: SnackBarService) {
-    this._categoryService.getCategories().subscribe((response: CategoryResponse) => {
+    this._subscription = this._categoryService.getCategories().subscribe((response: CategoryResponse) => {
       this.categories = response.categories;
     });
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
 
