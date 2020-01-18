@@ -18,26 +18,31 @@
     </span>
 </app-toolbar>
 
-<div class="location-view-container" fxLayout="column" fxLayoutAlign="start stretch">
+<!-- <div class="location-view-container" fxLayout="column" fxLayoutAlign="start stretch"> -->
+<mat-card>
+    <div class="location-view-container" fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxFlex="10" fxLayout="column wrap">
+            <div>
+                {{'LOCATION_VIEW.NAME_LABEL' | translate}} {{location.name}}
+            </div>
 
-    <div fxFlex="0 0 7%" fxLayout="column wrap">
-        <div>
-            {{'LOCATION_VIEW.NAME_LABEL' | translate}} {{location.name}}
+            <div>
+                {{'LOCATION_VIEW.ADDRESS_LABEL' | translate}} {{location.address}}
+            </div>
+
+            <div>
+                {{'LOCATION_VIEW.CATEGORY_LABEL' | translate}} {{location.category}}
+            </div>
+
         </div>
 
-        <div>
-            {{'LOCATION_VIEW.ADDRESS_LABEL' | translate}} {{location.address}}
-        </div>
 
-        <div>
-            {{'LOCATION_VIEW.CATEGORY_LABEL' | translate}} {{location.category}}
-        </div>
+        <agm-map fxFlex="90" style="height: 100%" [latitude]='latitude' [longitude]='longitude'>
+            <agm-marker [latitude]='latitude' [longitude]='longitude' [markerDraggable]='true'>
+            </agm-marker>
+        </agm-map>
 
     </div>
 
-
-    <agm-map fxFlex="0 0 93%" style="height: 100%" [latitude]='latitude' [longitude]='longitude'>
-        <agm-marker [latitude]='latitude' [longitude]='longitude' [markerDraggable]='true'>
-        </agm-marker>
-    </agm-map>
-</div>
+</mat-card>
+<!-- </div> -->

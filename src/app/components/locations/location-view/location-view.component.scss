@@ -2,9 +2,11 @@ agm-map {
     width: 100%;
 }
 
+mat-card {
+    height: calc(100% - 130px);
+    margin: 20px;
+}
+
 .location-view-container {
-    width: 97%;
-    height: 91%;
-    margin-left: 20px;
-    margin-top: 20px;
+    height: 100%;
 }
