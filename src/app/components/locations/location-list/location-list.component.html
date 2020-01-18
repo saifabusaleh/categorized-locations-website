@@ -1,30 +1,32 @@
 <app-toolbar>
-	<span slot-menu>
-		<button mat-menu-item (click)="onAddLocation()"> 
-			<mat-icon>add</mat-icon>
-			<span>{{'TOOLBAR.ADD' | translate}}</span>
-		</button>
-		<button mat-menu-item [disabled]="true">
-			<mat-icon>edit</mat-icon>
-			<span>{{'TOOLBAR.EDIT' | translate}}</span>
-		</button>
-		<button mat-menu-item [disabled]="true">
-			<mat-icon>delete</mat-icon>
-			<span>{{'TOOLBAR.DELETE' | translate}}</span>
-		</button>
+    <span slot-menu>
+        <button mat-menu-item (click)="onAddLocation()">
+            <mat-icon>add</mat-icon>
+            <span>{{'TOOLBAR.ADD' | translate}}</span>
+        </button>
+        <button mat-menu-item [disabled]="true">
+            <mat-icon>edit</mat-icon>
+            <span>{{'TOOLBAR.EDIT' | translate}}</span>
+        </button>
+        <button mat-menu-item [disabled]="true">
+            <mat-icon>delete</mat-icon>
+            <span>{{'TOOLBAR.DELETE' | translate}}</span>
+        </button>
     </span>
     <span slot-title>
         {{'LOCATION_LIST.TITLE' | translate}}
     </span>
 </app-toolbar>
 <div class="location-list-container">
-    <mat-slide-toggle (change)="onToggleChange($event.checked)">{{'LOCATION_LIST.GROUP_BY_TOGGLE' | translate}}</mat-slide-toggle>
+    <mat-slide-toggle (change)="onToggleChange($event.checked)">{{'LOCATION_LIST.GROUP_BY_TOGGLE' | translate}}
+    </mat-slide-toggle>
     <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'LOCATION_LIST.FILTER_PLACEHOLDER' | translate}}">
+        <input matInput (keyup)="onApplyFilter($event.target.value)"
+            placeholder="{{'LOCATION_LIST.FILTER_PLACEHOLDER' | translate}}">
     </mat-form-field>
 
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)= "onSortData($event)">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="onSortData($event)">
 
         <!-- Location Name Column -->
         <ng-container matColumnDef="name">
@@ -41,7 +43,8 @@
         </ng-container>
 
         <ng-container matColumnDef="categoryName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'LOCATION_LIST.COLUMN_CATEGORY_NAME' | translate}} </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'LOCATION_LIST.COLUMN_CATEGORY_NAME' | translate}}
+            </th>
             <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
         </ng-container>
 
@@ -49,14 +52,14 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 
-        	<!-- Group header -->
-	<ng-container matColumnDef="groupHeader">
-		<td colspan="999" mat-cell *matCellDef="let group">
-			<strong>{{groupByColumns[group.level-1]}} = {{group[groupByColumns[group.level-1]]}}</strong> 
-      </td>
-  </ng-container>
+        <!-- Group header -->
+        <ng-container matColumnDef="groupHeader">
+            <td colspan="999" mat-cell *matCellDef="let group">
+                <strong>{{groupByColumns[group.level-1]}} = {{group[groupByColumns[group.level-1]]}}</strong>
+            </td>
+        </ng-container>
 
-  <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup"> </tr>
+        <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup"> </tr>
 
     </table>
 </div>

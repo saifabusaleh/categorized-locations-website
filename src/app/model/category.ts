@@ -1,8 +1,5 @@
 import { AppLocation } from './location';
 export class Category {
-    constructor(categoryName: string) {
-        this._categoryName = categoryName;
-    }
     private _categoryName: string;
     private _locations: AppLocation[];
 
@@ -21,6 +18,7 @@ export class Category {
     set locations(locations: AppLocation[]) {
         this._locations = locations;
     }
-
-    
+    constructor(categoryName: string) {
+        this._categoryName = categoryName;
+    }
 }
