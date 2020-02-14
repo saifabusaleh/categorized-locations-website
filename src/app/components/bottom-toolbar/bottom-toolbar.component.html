@@ -1,17 +1,15 @@
 <mat-toolbar color="primary">
 
-    <mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-evenly stretch">
 
-        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-evenly stretch">
+        <button (click)="onGoToCategories()" fxFlex mat-button>
+            <mat-icon>category</mat-icon>
+            <span>{{'BOTTOM_MENU.CATEGORIES' | translate}}</span>
+        </button>
+        <button (click)="onGoToLocations()" fxFlex mat-button>
+            <mat-icon>location_city</mat-icon>
+            <span>{{'BOTTOM_MENU.LOCATIONS' | translate}}</span>
+        </button>
 
-            <button (click)="onGoToCategories()" fxFlex mat-button>
-                <mat-icon>category</mat-icon>
-                <span>{{'BOTTOM_MENU.CATEGORIES' | translate}}</span>
-            </button>
-            <button (click)="onGoToLocations()" fxFlex mat-button>
-                <mat-icon>location_city</mat-icon>
-                <span>{{'BOTTOM_MENU.LOCATIONS' | translate}}</span>
-            </button>
-
-        </mat-toolbar-row>
-    </mat-toolbar>
+    </mat-toolbar-row>
+</mat-toolbar>

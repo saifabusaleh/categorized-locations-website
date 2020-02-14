@@ -3,13 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDividerModule, MatSnackBarModule}  from '@angular/material';
 
 import { BottomToolbarComponent } from '@components/bottom-toolbar/bottom-toolbar.component';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { MatDividerModule } from '@angular/material/divider';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {

@@ -3,13 +3,15 @@ import { AppPaths } from '@models/app-paths';
 import { LocationService } from '@services/location/location.service';
 import { AppLocation } from '@models/location';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { LocationResponse } from '@models/location-response';
 import { DialogModes } from '@models/dialog-modes';
 import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 import { Subscription } from 'rxjs';
 import { TableLogic } from './TableLogic';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 export interface LocationData {
   name: string;
   address: string;
