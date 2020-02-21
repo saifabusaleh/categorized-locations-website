@@ -1,6 +1,6 @@
 import { LocationResponse, LocationStatusEnum } from '@models/location-response';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AppLocation } from '@models/location';
 import { Category } from '@models/category';
 import { LocalStorageService } from '@services/local-storage/local-storage.service';
