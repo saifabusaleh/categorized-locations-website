@@ -1,4 +1,4 @@
-# My Locations Applcation
+# My Locations Application
 
 Website that shows locations by category.
 Demo: http://pacific-spire-36644.herokuapp.com/
