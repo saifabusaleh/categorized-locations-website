@@ -4,9 +4,9 @@ import {MatTableDataSource} from '@angular/material/table';
 
 class Group {
 
-    level: number = 0;
+    level = 0;
     parent: Group;
-    expanded: boolean = true;
+    expanded = true;
     get visible(): boolean {
         return !this.parent || (this.parent.visible && this.parent.expanded);
     }
@@ -15,7 +15,7 @@ class Group {
 export class TableLogic {
 
     public dataSource: MatTableDataSource<LocationData>;
-    private _isInGroupingMode: boolean;
+    private isInGroupingMode: boolean;
     groupByColumns: string[];
 
     constructor(dataSource, groupByCols) {
@@ -46,32 +46,32 @@ export class TableLogic {
             return true;
         }
         if (groupRows.length > 1) {
-            throw 'Data row is in more than one group!';
+            throw new Error('Data row is in more than one group!');
         }
-        const parent = <Group>(groupRows[0] as any);  // </Group> (Fix syntax coloring)
+        const parent =  (groupRows[0] as any) as Group;  // </Group> (Fix syntax coloring)
 
         return parent.visible && parent.expanded;
     }
 
     addGroups(data: any[], groupByColumns: string[]): any[] {
-        var rootGroup = new Group();
+        const rootGroup = new Group();
         return this.getSublevel(data, 0, groupByColumns, rootGroup);
     }
 
     getSublevel(data: any[], level: number, groupByColumns: string[], parent: Group): any[] {
-        // Recursive function, stop when there are no more levels. 
+        // Recursive function, stop when there are no more levels.
         if (level >= groupByColumns.length) {
             return data;
         }
 
 
-        var groups = this.uniqueBy(
+        const groups = this.uniqueBy(
             data.map(
                 row => {
-                    var result = new Group();
+                    const result = new Group();
                     result.level = level + 1;
                     result.parent = parent;
-                    for (var i = 0; i <= level; i++) {
+                    for (let i = 0; i <= level; i++) {
                         result[groupByColumns[i]] = row[groupByColumns[i]];
                     }
                     return result;
@@ -81,10 +81,10 @@ export class TableLogic {
 
         const currentColumn = groupByColumns[level];
 
-        var subGroups = [];
+        let subGroups = [];
         groups.forEach(group => {
-            let rowsInGroup = data.filter(row => group[currentColumn] === row[currentColumn]);
-            let subGroup = this.getSublevel(rowsInGroup, level + 1, groupByColumns, group);
+            const rowsInGroup = data.filter(row => group[currentColumn] === row[currentColumn]);
+            const subGroup = this.getSublevel(rowsInGroup, level + 1, groupByColumns, group);
             subGroup.unshift(group);
             subGroups = subGroups.concat(subGroup);
         });
@@ -92,9 +92,9 @@ export class TableLogic {
     }
 
     uniqueBy(a, key) {
-        var seen = {};
-        return a.filter(function (item) {
-            var k = key(item);
+        const seen = {};
+        return a.filter((item) => {
+            const k = key(item);
             return seen.hasOwnProperty(k) ? false : (seen[k] = true);
         });
     }
@@ -104,12 +104,12 @@ export class TableLogic {
     }
 
     onToggleChange(enabled: boolean, locations: LocationData[]) {
-        this._isInGroupingMode = enabled;
+        this.isInGroupingMode = enabled;
         this.updateGridData(locations);
     }
 
     public updateGridData(locations: LocationData[]) {
-        if (this._isInGroupingMode) {
+        if (this.isInGroupingMode) {
             this.dataSource.data = this.addGroups(locations, this.groupByColumns);
 
         } else {
@@ -136,7 +136,7 @@ export class TableLogic {
                 }
             });
         }
-        if (this._isInGroupingMode) {
+        if (this.isInGroupingMode) {
             this.dataSource.data = this.addGroups(data, this.groupByColumns);
         } else {
             this.dataSource.data = data;

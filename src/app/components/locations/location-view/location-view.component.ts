@@ -25,10 +25,10 @@ export class LocationViewComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
-    private _locationService: LocationService,
-    private _router: Router,
-    private _dialog: MatDialog,
-    private _snackBarService: SnackBarService) { }
+              private locationService: LocationService,
+              private router: Router,
+              private dialog: MatDialog,
+              private snackBarService: SnackBarService) { }
 
   ngOnInit() {
 
@@ -39,9 +39,9 @@ export class LocationViewComponent implements OnInit {
   }
 
   getLocation(locationName: string) {
-    this._locationService.getLocation(locationName).subscribe((response: LocationResponse) => {
+    this.locationService.getLocation(locationName).subscribe((response: LocationResponse) => {
       if (response.status) {
-        //handle
+        // handle
         return;
       }
       this.location = response.locations[0];
@@ -52,7 +52,7 @@ export class LocationViewComponent implements OnInit {
   }
 
   onEditLocation() {
-    let dialogRef = this.openLocationDialog(DialogModes.Edit);
+    const dialogRef = this.openLocationDialog(DialogModes.Edit);
     dialogRef.afterClosed().subscribe((location: AppLocation) => {
       this.performUpdateLocation(location);
     });
@@ -63,7 +63,7 @@ export class LocationViewComponent implements OnInit {
   }
 
   openLocationDialog(modeInput: DialogModes) {
-    const dialogRef = this._dialog.open(LocationFormDialogComponent, {
+    const dialogRef = this.dialog.open(LocationFormDialogComponent, {
       data: { locationName: this.locationName, locationCategory: this.categoryName, mode: modeInput },
       width: '500px'
     });
@@ -72,12 +72,12 @@ export class LocationViewComponent implements OnInit {
 
   private performUpdateLocation(newLocation: AppLocation) {
     if (newLocation) {
-      this._locationService.updateLocation(this.locationName, this.categoryName, newLocation).subscribe((response: LocationResponse) => {
+      this.locationService.updateLocation(this.locationName, this.categoryName, newLocation).subscribe((response: LocationResponse) => {
         if (response.status) {
           this.handleError(response.status, this.locationName);
           return;
         }
-        this._router.navigate(['/' + AppPaths.Locations + '/' +  response.location.name]);
+        this.router.navigate(['/' + AppPaths.Locations + '/' +  response.location.name]);
         this.location = response.location;
         this.locationName = this.location.name;
       });
@@ -85,17 +85,17 @@ export class LocationViewComponent implements OnInit {
   }
 
   private performDeleteLocation() {
-    this._locationService.deleteLocation(this.locationName, this.categoryName).subscribe((response: LocationResponse) => {
+    this.locationService.deleteLocation(this.locationName, this.categoryName).subscribe((response: LocationResponse) => {
       if (response.status) {
         this.handleError(response.status, this.locationName);
         return;
       }
-      this._router.navigate(['/' + AppPaths.Locations]);
+      this.router.navigate(['/' + AppPaths.Locations]);
     });
   }
 
   private handleError(status: LocationStatusEnum, parameter?: string) {
-    this._snackBarService.showSnackBar(status.replace('{0}', parameter));
+    this.snackBarService.showSnackBar(status.replace('{0}', parameter));
   }
 
 }

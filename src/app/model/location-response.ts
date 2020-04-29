@@ -12,6 +12,4 @@ export class LocationResponse {
     location: AppLocation;
 
     status: LocationStatusEnum;
-
-
 }

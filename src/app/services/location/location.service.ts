@@ -11,17 +11,17 @@ import { UtilsService } from '@services/utils/utils.service';
 })
 export class LocationService {
 
-  private _locations: AppLocation[];
-  constructor(private _utilsService: UtilsService,
-    private localStorageService: LocalStorageService) {
-    this._locations = [];
+  private locations: AppLocation[];
+  constructor(private utilsService: UtilsService,
+              private localStorageService: LocalStorageService) {
+    this.locations = [];
 
   }
 
   public getLocations(): Observable<LocationResponse> {
     const locationResponse = new LocationResponse();
-    const categories: Category[] = this._utilsService.convertFromMapToArrayValues(this.localStorageService.getCategories());
-    let locations: AppLocation[] = [];
+    const categories: Category[] = this.utilsService.convertFromMapToArrayValues(this.localStorageService.getCategories());
+    const locations: AppLocation[] = [];
     if (categories) {
       categories.forEach((category: Category) => {
         if (category.locations) {
@@ -31,18 +31,18 @@ export class LocationService {
         }
       });
     }
-    this._locations = locations;
+    this.locations = locations;
     locationResponse.locations = locations;
     return of(locationResponse);
   }
 
   public getLocation(locationName: string): Observable<LocationResponse> {
     const locationResponse = new LocationResponse();
-    const categories: Category[] = this._utilsService.convertFromMapToArrayValues(this.localStorageService.getCategories());
+    const categories: Category[] = this.utilsService.convertFromMapToArrayValues(this.localStorageService.getCategories());
     let locationRes: AppLocation;
-    for (let category of categories) {
+    for (const category of categories) {
       if (category.locations) {
-        for (let location of category.locations) {
+        for (const location of category.locations) {
           if (location.name === locationName) {
             locationRes = location;
             break;
@@ -73,9 +73,9 @@ export class LocationService {
       category.locations = [];
     }
     category.locations.push(location);
-    this._locations.push(location);
+    this.locations.push(location);
     this.localStorageService.setCategories(categories);
-    locationResponse.locations = this._locations;
+    locationResponse.locations = this.locations;
     return of(locationResponse);
   }
 
@@ -98,7 +98,7 @@ export class LocationService {
     }
     categoryToUpdate.locations[locationToUpdateIndex] = newLocation;
     categories.set(categoryToUpdate.categoryName, categoryToUpdate);
-    this._locations[locationToUpdateIndex] = newLocation;
+    this.locations[locationToUpdateIndex] = newLocation;
     this.localStorageService.setCategories(categories);
     locationResponse.location = newLocation;
     return of(locationResponse);
@@ -121,7 +121,7 @@ export class LocationService {
       return of(locationResponse);
     }
     targetCat.locations.splice(locationToDeleteIndex, 1);
-    this._locations.splice(locationToDeleteIndex, 1);
+    this.locations.splice(locationToDeleteIndex, 1);
     categories.set(targetCat.categoryName, targetCat);
     this.localStorageService.setCategories(categories);
     return of(locationResponse);

@@ -12,6 +12,7 @@ import { TableLogic } from './TableLogic';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+
 export interface LocationData {
   name: string;
   address: string;
@@ -35,44 +36,44 @@ export class LocationListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'address', 'categoryName'];
 
 
-  private _locations: LocationData[];
+  private locations: LocationData[];
 
-  private _subscription: Subscription;
+  private subscription: Subscription;
 
-  private _tableLogic: TableLogic;
+  private tableLogic: TableLogic;
 
-  constructor(private _locationService: LocationService,
-    private _dialog: MatDialog,
-    private _snackBarService: SnackBarService) {
-    this._locations = [];
-    this._subscription = this._locationService.getLocations().subscribe((response: LocationResponse) => {
-      this._locations = this.convertFromAppLocationToLocationData(response.locations);
-      this._tableLogic = new TableLogic(new MatTableDataSource(this._locations), this.groupByColumns);
-      this.dataSource = this._tableLogic.dataSource;
+  constructor(private locationService: LocationService,
+              private dialog: MatDialog,
+              private snackBarService: SnackBarService) {
+    this.locations = [];
+    this.subscription = this.locationService.getLocations().subscribe((response: LocationResponse) => {
+      this.locations = this.convertFromAppLocationToLocationData(response.locations);
+      this.tableLogic = new TableLogic(new MatTableDataSource(this.locations), this.groupByColumns);
+      this.dataSource = this.tableLogic.dataSource;
     });
   }
 
   ngOnInit() {
-    this._tableLogic.updateGridWithDataSource();
+    this.tableLogic.updateGridWithDataSource();
   }
 
   ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   onApplyFilter(filterValue: string) {
-    this._tableLogic.onApplyFilter(filterValue);
+    this.tableLogic.onApplyFilter(filterValue);
   }
 
   onAddLocation() {
-    let dialogRef = this.openLocationDialog(DialogModes.Add);
+    const dialogRef = this.openLocationDialog(DialogModes.Add);
     dialogRef.afterClosed().subscribe((location: AppLocation) => {
       this.performAddLocation(location);
     });
   }
 
   openLocationDialog(modeInput: DialogModes) {
-    const dialogRef = this._dialog.open(LocationFormDialogComponent, {
+    const dialogRef = this.dialog.open(LocationFormDialogComponent, {
       data: { locationName: '', locationCategory: '', mode: modeInput },
       width: '500px'
     });
@@ -80,11 +81,11 @@ export class LocationListComponent implements OnInit, OnDestroy {
   }
 
   onToggleChange(enabled: boolean) {
-    this._tableLogic.onToggleChange(enabled, this._locations);
+    this.tableLogic.onToggleChange(enabled, this.locations);
   }
 
   onSortData(sort: MatSort) {
-    this._tableLogic.onSortData(sort, this._locations);
+    this.tableLogic.onSortData(sort, this.locations);
   }
 
   isGroup(index, item): boolean {
@@ -92,9 +93,9 @@ export class LocationListComponent implements OnInit, OnDestroy {
   }
 
   private convertFromAppLocationToLocationData(locationsInput: AppLocation[]): LocationData[] {
-    let res: LocationData[] = [];
+    const res: LocationData[] = [];
     locationsInput.forEach((location: AppLocation) => {
-      let locationDataItem: LocationData = {
+      const locationDataItem: LocationData = {
         name: location.name,
         address: location.address,
         categoryName: location.category
@@ -106,20 +107,20 @@ export class LocationListComponent implements OnInit, OnDestroy {
 
   private performAddLocation(location: AppLocation) {
     if (location) {
-      this._locationService.createLocation(location).subscribe((response: LocationResponse) => {
+      this.locationService.createLocation(location).subscribe((response: LocationResponse) => {
         if (response.status) {
           this.handleError(response.status, `Category ${location.category} not found!`);
           return;
         }
-        this._locations = this.convertFromAppLocationToLocationData(response.locations);
-        this._tableLogic.updateGridData(this._locations);
-        this._tableLogic.updateGridWithDataSource();
+        this.locations = this.convertFromAppLocationToLocationData(response.locations);
+        this.tableLogic.updateGridData(this.locations);
+        this.tableLogic.updateGridWithDataSource();
       });
     }
   }
 
   private handleError(status: LocationStatusEnum, parameter?: string) {
-    this._snackBarService.showSnackBar(status.replace('{0}', parameter));
+    this.snackBarService.showSnackBar(status.replace('{0}', parameter));
   }
 
 }

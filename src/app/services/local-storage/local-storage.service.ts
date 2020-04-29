@@ -22,11 +22,11 @@ export class LocalStorageService {
     return categoriesMap ? this.parseToCategoryType(categoriesMap) : undefined;
   }
 
-  private parseToCategoryType(categoriesMap): Map<string, Category> { 
-    let categoriesResult: Map<string, Category> = new Map<string, Category>();
+  private parseToCategoryType(categoriesMap): Map<string, Category> {
+    const categoriesResult: Map<string, Category> = new Map<string, Category>();
 
     for (const [key, cat] of categoriesMap.entries()) {
-      let catToAdd: Category = new Category(cat._categoryName);
+      const catToAdd: Category = new Category(cat._categoryName);
       catToAdd.locations = [];
       if (cat._locations) {
         cat._locations.forEach((loc) => {
