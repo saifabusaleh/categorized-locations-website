@@ -1,11 +1,11 @@
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 import { Category } from '@models/category';
-import { AppPaths } from '@models/app-paths';
+import { AppPaths } from '@enums/app-paths';
 import { Component} from '@angular/core';
 import { CategoryService } from '@services/category/category.service';
 import { CategoryResponse, CategoryStatusEnum } from '@models/category.response';
 import { Observable, of} from 'rxjs';
-import { DialogModes } from '@models/dialog-modes';
+import { DialogModes } from '@enums/dialog-modes';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialog } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
 import { MatRadioChange } from '@angular/material/radio';

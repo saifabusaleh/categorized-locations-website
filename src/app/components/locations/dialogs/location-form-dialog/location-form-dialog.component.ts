@@ -8,7 +8,7 @@ import { Category } from '@models/category';
 import { CategoryResponse } from '@models/category.response';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Coordinate, AppLocation } from '@models/location';
-import { DialogModes } from '@models/dialog-modes';
+import { DialogModes } from '@enums/dialog-modes';
 import { TranslateService } from '@ngx-translate/core';
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 

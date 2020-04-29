@@ -5,7 +5,8 @@
     "paths": {
       "@components/*": ["src/app/components/*"],
       "@services/*": ["src/app/services/*"],
-      "@models/*": ["src/app/model/*"]
+      "@models/*": ["src/app/model/*"],
+      "@enums/*": ["src/app/enums/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

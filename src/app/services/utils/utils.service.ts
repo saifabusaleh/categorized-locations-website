@@ -8,7 +8,7 @@ export class UtilsService {
   constructor() { }
 
   public convertFromMapToArrayValues<A,B>(map: Map<A, B>): B[] {
-    let categoriesArr: B[] = Array.from(map.values());
+    const categoriesArr: B[] = Array.from(map.values());
     return categoriesArr;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppPaths } from '@models/app-paths';
+import { AppPaths } from '@enums/app-paths';
 
 @Component({
   selector: 'app-bottom-toolbar',
@@ -9,7 +9,7 @@ import { AppPaths } from '@models/app-paths';
 })
 export class BottomToolbarComponent implements OnInit {
 
-  constructor(private _router: Router) { 
+  constructor(private router: Router) {
     //
   }
 
@@ -18,14 +18,12 @@ export class BottomToolbarComponent implements OnInit {
   }
 
   onGoToCategories() {
-    this._router.navigate(['/'+ AppPaths.Categories], { replaceUrl: true });
+    this.router.navigate(['/' + AppPaths.Categories], { replaceUrl: true });
 
   }
 
   onGoToLocations() {
-    
-    this._router.navigate(['/' + AppPaths.Locations], { replaceUrl: true });
-
+    this.router.navigate(['/' + AppPaths.Locations], { replaceUrl: true });
   }
 
 }

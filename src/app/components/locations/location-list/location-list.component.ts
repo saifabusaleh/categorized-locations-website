@@ -1,10 +1,10 @@
 import { LocationStatusEnum } from '@models/location-response';
-import { AppPaths } from '@models/app-paths';
+import { AppPaths } from '@enums/app-paths';
 import { LocationService } from '@services/location/location.service';
 import { AppLocation } from '@models/location';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationResponse } from '@models/location-response';
-import { DialogModes } from '@models/dialog-modes';
+import { DialogModes } from '@enums/dialog-modes';
 import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 import { Subscription } from 'rxjs';

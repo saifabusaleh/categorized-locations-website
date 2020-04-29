@@ -4,7 +4,7 @@ export class Coordinate {
     private _lat: number;
     private _lng: number;
 
-    get lat() { 
+    get lat() {
         return this._lat;
     }
 
@@ -12,7 +12,7 @@ export class Coordinate {
         this._lat = latInput;
     }
 
-    get lng() { 
+    get lng() {
         return this._lng;
     }
 
@@ -49,7 +49,7 @@ export class AppLocation {
         return this._coords;
     }
     constructor(locationName: string, locationAddress: string, locationCords: Coordinate,
-        locationCategory: string) {
+                locationCategory: string) {
         this._name = locationName;
         this._coords = locationCords;
         this._address = locationAddress;
