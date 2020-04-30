@@ -1,4 +1,4 @@
-import { LocationResponse, LocationStatusEnum } from '@models/location-response';
+import { LocationStatusEnum } from '@models/location-response';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from '@services/location/location.service';

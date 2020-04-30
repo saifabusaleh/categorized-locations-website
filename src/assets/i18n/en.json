@@ -36,7 +36,7 @@
     "COLUMN_NAME": "Name",
     "COLUMN_ADDRESS": "Address",
     "COLUMN_CATEGORY_NAME": "Category Name",
-    "FILTER_PLACEHOLDER": "Filter By Category",
+    "FILTER_PLACEHOLDER": "Filter By Category Name",
     "GROUP_BY_TOGGLE": "Group by Category name"
   },
   "LOCATION_VIEW": {
