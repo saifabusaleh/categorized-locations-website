@@ -7,7 +7,7 @@ import { CategoryResponse, CategoryStatusEnum } from '@models/category.response'
 import { Observable, of } from 'rxjs';
 import { DialogModes } from '@enums/dialog-modes';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryDialog } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
+import { CategoryDialogComponent } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
 import { MatRadioChange } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
 
@@ -33,16 +33,16 @@ export class CategoryListComponent {
 
 
   onAddCategory() {
-    const dialogRef = this.openCategoryDialog(DialogModes.Add);
+    const dialogRef = this.openCategoryDialog(DialogModes.Add, '');
     dialogRef.afterClosed().subscribe(categoryName => {
       this._performAddCategory(categoryName);
     });
   }
 
-  openCategoryDialog(modeInput: DialogModes) {
-    const dialogRef = this.dialog.open(CategoryDialog, {
+  openCategoryDialog(modeInput: DialogModes, categoryName: string) {
+    const dialogRef = this.dialog.open(CategoryDialogComponent, {
       width: '260px',
-      data: { categoryName: '', mode: modeInput }
+      data: { categoryName, mode: modeInput }
     });
     return dialogRef;
   }
@@ -50,7 +50,7 @@ export class CategoryListComponent {
 
 
   onEditCategory() {
-    const dialogRef = this.openCategoryDialog(DialogModes.Edit);
+    const dialogRef = this.openCategoryDialog(DialogModes.Edit, this.selectedCategoryName);
     dialogRef.afterClosed().subscribe(categoryName => {
       this._performUpdateCategory(categoryName);
     });

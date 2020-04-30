@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoryDialog } from './dialogs/category-dialog/category-dialog';
+import { CategoryDialogComponent } from './dialogs/category-dialog/category-dialog';
 import { CategoriesRoutingModule } from './categories-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatListModule } from '@angular/material/list';
@@ -11,7 +11,7 @@ import { CategoryListComponent } from '@components/categories/category-list/cate
 @NgModule({
   declarations: [
     CategoryListComponent,
-    CategoryDialog
+    CategoryDialogComponent
   ],
   imports: [
     CommonModule,
@@ -21,8 +21,8 @@ import { CategoryListComponent } from '@components/categories/category-list/cate
   ],
 
   exports: [
-    CategoryDialog
+    CategoryDialogComponent
   ],
-  entryComponents: [CategoryDialog]
+  entryComponents: [CategoryDialogComponent]
 })
 export class CategoriesModule { }

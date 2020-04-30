@@ -13,26 +13,25 @@ export interface CategoryDialogData {
   selector: 'category-dialog',
   templateUrl: './category-dialog.html',
 })
-export class CategoryDialog {
-
+export class CategoryDialogComponent {
 
   addOrEditButtonText: string;
 
   title: string;
 
   constructor(
-    private dialogRef: MatDialogRef<CategoryDialog>,
+    private dialogRef: MatDialogRef<CategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CategoryDialogData,
-    private _translate: TranslateService) {
+    private translate: TranslateService) {
     switch (data.mode) {
       case DialogModes.Add:
-        this.title = this._translate.instant('CATEGORY_DIALOG.NEW_TITLE');
-        this.addOrEditButtonText = this._translate.instant('CATEGORY_DIALOG.ADD_TEXT');
+        this.title = this.translate.instant('CATEGORY_DIALOG.NEW_TITLE');
+        this.addOrEditButtonText = this.translate.instant('CATEGORY_DIALOG.ADD_TEXT');
         break;
 
       case DialogModes.Edit:
-        this.title = this._translate.instant('CATEGORY_DIALOG.EDIT_TITLE');
-        this.addOrEditButtonText = this._translate.instant('CATEGORY_DIALOG.EDIT_TEXT');
+        this.title = this.translate.instant('CATEGORY_DIALOG.EDIT_TITLE');
+        this.addOrEditButtonText = this.translate.instant('CATEGORY_DIALOG.EDIT_TEXT');
         break;
     }
   }
@@ -40,5 +39,4 @@ export class CategoryDialog {
   onCloseClick(): void {
     this.dialogRef.close();
   }
-
 }
