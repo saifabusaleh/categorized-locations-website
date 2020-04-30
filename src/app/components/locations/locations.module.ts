@@ -12,6 +12,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCardModule} from '@angular/material/card';
+import { API_KEY } from 'env';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import {MatCardModule} from '@angular/material/card';
     MatSlideToggleModule,
     MatTableModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyACCrhxPECAdny-D4CO5R6hG_Vo8vjHmR8'
+      apiKey: API_KEY
     }),
     ReactiveFormsModule,
     MatSortModule,
