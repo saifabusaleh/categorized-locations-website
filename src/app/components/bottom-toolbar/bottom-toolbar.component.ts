@@ -7,13 +7,9 @@ import { AppPaths } from '@enums/app-paths';
   templateUrl: './bottom-toolbar.component.html',
   styleUrls: ['./bottom-toolbar.component.scss']
 })
-export class BottomToolbarComponent implements OnInit {
+export class BottomToolbarComponent {
 
   constructor(private router: Router) {
-    //
-  }
-
-  ngOnInit() {
     //
   }
 
