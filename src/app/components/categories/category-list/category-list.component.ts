@@ -26,9 +26,9 @@ export class CategoryListComponent {
 
 
   constructor(private categoryService: CategoryService,
-    private dialog: MatDialog,
-    private snackBarService: SnackBarService) {
-    this.categories$ = this.categoryService.getCategories().pipe(map(res => res.categories));
+              private dialog: MatDialog,
+              private snackBarService: SnackBarService) {
+    this.categories$ = of(this.categoryService.getCategories().categories);
   }
 
 
@@ -66,37 +66,33 @@ export class CategoryListComponent {
 
   private _performAddCategory(categoryName: string) {
     if (categoryName) {
-      this.categoryService.createCategory(new Category(categoryName)).subscribe((response: CategoryResponse) => {
-        if (response.status) {
+      const response: CategoryResponse = this.categoryService.createCategory(new Category(categoryName));
+      if (response.status) {
           this._handleError(response.status, categoryName);
           return;
         }
-        this.categories$ = of(response.categories);
-      });
+      this.categories$ = of(response.categories);
     }
   }
 
   private _performUpdateCategory(newCategoryName: string) {
     if (newCategoryName) {
-      this.categoryService.updateCategoryName(this.selectedCategoryName, newCategoryName).subscribe((response: CategoryResponse) => {
-        if (response.status) {
+      const response = this.categoryService.updateCategoryName(this.selectedCategoryName, newCategoryName);
+      if (response.status) {
           this._handleError(response.status, this.selectedCategoryName);
           return;
         }
-        this._updateDataSource(response.categories);
-      });
-    }
+      this._updateDataSource(response.categories);
+      }
   }
 
   private _performDeleteCategory() {
-
-    this.categoryService.deleteCategory(this.selectedCategoryName).subscribe((response: CategoryResponse) => {
-      if (response.status) {
+    const response = this.categoryService.deleteCategory(this.selectedCategoryName);
+    if (response.status) {
         this._handleError(response.status, this.selectedCategoryName);
         return;
       }
-      this._updateDataSource(response.categories);
-    });
+    this._updateDataSource(response.categories);
   }
 
   private _updateDataSource(categories: Category[]) {

@@ -9,6 +9,8 @@ export class CategoryResponse {
 
     categories: Category[];
 
+    categoriesMap: Map<string, Category>;
+
     status: CategoryStatusEnum;
 
     locations: AppLocation[];

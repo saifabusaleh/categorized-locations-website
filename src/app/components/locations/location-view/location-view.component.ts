@@ -39,16 +39,15 @@ export class LocationViewComponent implements OnInit {
   }
 
   getLocation(locationName: string) {
-    this.locationService.getLocation(locationName).subscribe((response: LocationResponse) => {
-      if (response.status) {
+    const response = this.locationService.getLocation(locationName);
+    if (response.status) {
         // handle
         return;
       }
-      this.location = response.locations[0];
-      this.categoryName = this.location.category;
-      this.latitude = this.location.coords.lat;
-      this.longitude = this.location.coords.lng;
-    });
+    this.location = response.locations[0];
+    this.categoryName = this.location.category;
+    this.latitude = this.location.coords.lat;
+    this.longitude = this.location.coords.lng;
   }
 
   onEditLocation() {
@@ -72,26 +71,28 @@ export class LocationViewComponent implements OnInit {
 
   private performUpdateLocation(newLocation: AppLocation) {
     if (newLocation) {
-      this.locationService.updateLocation(this.locationName, this.categoryName, newLocation).subscribe((response: LocationResponse) => {
-        if (response.status) {
+      const response = this.locationService.updateLocation(this.locationName, this.categoryName, newLocation);
+
+      if (response.status) {
           this.handleError(response.status, this.locationName);
           return;
         }
-        this.router.navigate(['/' + AppPaths.Locations + '/' +  response.location.name]);
-        this.location = response.location;
-        this.locationName = this.location.name;
-      });
+      this.router.navigate(['/' + AppPaths.Locations + '/' +  response.location.name]);
+      this.location = response.location;
+      this.locationName = this.location.name;
+
     }
   }
 
   private performDeleteLocation() {
-    this.locationService.deleteLocation(this.locationName, this.categoryName).subscribe((response: LocationResponse) => {
-      if (response.status) {
+    const response = this.locationService.deleteLocation(this.locationName, this.categoryName);
+
+    if (response.status) {
         this.handleError(response.status, this.locationName);
         return;
       }
-      this.router.navigate(['/' + AppPaths.Locations]);
-    });
+    this.router.navigate(['/' + AppPaths.Locations]);
+
   }
 
   private handleError(status: LocationStatusEnum, parameter?: string) {

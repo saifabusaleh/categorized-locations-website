@@ -19,31 +19,32 @@ export class CategoryService {
   }
 
 
-  public getCategories(): Observable<CategoryResponse> {
+  public getCategories(): CategoryResponse {
 
     const categoriesMap: Map<string, Category> = this.localStorageService.getCategories();
 
     const categoriesArr = this.utilsService.convertFromMapToArrayValues(categoriesMap);
     const categoriesResponse = new CategoryResponse();
     categoriesResponse.categories = categoriesArr;
-    return of(categoriesResponse);
+    categoriesResponse.categoriesMap = categoriesMap;
+    return categoriesResponse;
   }
 
-  public createCategory(category: Category): Observable<CategoryResponse> {
+  public createCategory(category: Category): CategoryResponse {
     const categoriesResponse = new CategoryResponse();
     this.categories = this.localStorageService.getCategories();
     const categoryToAdd: Category = this.categories.get(category.categoryName);
     if (categoryToAdd) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_ALREADY_EXIST;
-      return of(categoriesResponse);
+      return categoriesResponse;
     }
     this.categories.set(category.categoryName, category);
     this.localStorageService.setCategories(this.categories);
     categoriesResponse.categories = this.utilsService.convertFromMapToArrayValues(this.categories);
-    return of(categoriesResponse);
+    return categoriesResponse;
   }
 
-  public getCategoryByName(catName: string): Observable<CategoryResponse> {
+  public getCategoryByName(catName: string): CategoryResponse {
     this.categories = this.localStorageService.getCategories();
     const categoriesResponse = new CategoryResponse();
     const category: Category = this.categories.get(catName);
@@ -52,34 +53,34 @@ export class CategoryService {
     } else {
       categoriesResponse.categories = [category];
     }
-    return of(categoriesResponse);
+    return categoriesResponse;
   }
 
-  public updateCategoryName(categoryName: string, newCategoryName: string): Observable<CategoryResponse> {
+  public updateCategoryName(categoryName: string, newCategoryName: string): CategoryResponse {
     const categoriesResponse = new CategoryResponse();
     this.categories = this.localStorageService.getCategories();
     const category: Category = this.categories.get(categoryName);
     if (!category) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
-      return of(categoriesResponse);
+      return categoriesResponse;
     }
     category.categoryName = newCategoryName;
     this.categories.set(newCategoryName, category); // add new
     this.categories.delete(categoryName); //remove old one
     this.localStorageService.setCategories(this.categories);
     categoriesResponse.categories = this.utilsService.convertFromMapToArrayValues(this.categories);
-    return of(categoriesResponse);
+    return categoriesResponse;
   }
 
-  public deleteCategory(categoryName: string): Observable<CategoryResponse> {
+  public deleteCategory(categoryName: string): CategoryResponse {
     const categoriesResponse = new CategoryResponse();
     this.categories = this.localStorageService.getCategories();
     if (!this.categories.delete(categoryName)) {
       categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
-      return of(categoriesResponse);
+      return categoriesResponse;
     }
     this.localStorageService.setCategories(this.categories);
     categoriesResponse.categories = this.utilsService.convertFromMapToArrayValues(this.categories);
-    return of(categoriesResponse);
+    return categoriesResponse;
   }
 }

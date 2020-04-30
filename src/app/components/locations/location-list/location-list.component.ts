@@ -7,7 +7,6 @@ import { LocationResponse } from '@models/location-response';
 import { DialogModes } from '@enums/dialog-modes';
 import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
-import { Subscription } from 'rxjs';
 import { TableLogic } from './TableLogic';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,7 +23,7 @@ export interface LocationData {
   templateUrl: './location-list.component.html',
   styleUrls: ['./location-list.component.scss']
 })
-export class LocationListComponent implements OnInit, OnDestroy {
+export class LocationListComponent implements OnInit {
 
   appPathsEnum = AppPaths;
 
@@ -38,7 +37,6 @@ export class LocationListComponent implements OnInit, OnDestroy {
 
   private locations: LocationData[];
 
-  private subscription: Subscription;
 
   private tableLogic: TableLogic;
 
@@ -46,19 +44,14 @@ export class LocationListComponent implements OnInit, OnDestroy {
               private dialog: MatDialog,
               private snackBarService: SnackBarService) {
     this.locations = [];
-    this.subscription = this.locationService.getLocations().subscribe((response: LocationResponse) => {
-      this.locations = this.convertFromAppLocationToLocationData(response.locations);
-      this.tableLogic = new TableLogic(new MatTableDataSource(this.locations), this.groupByColumns);
-      this.dataSource = this.tableLogic.dataSource;
-    });
+    const response = this.locationService.getLocations();
+    this.locations = this.convertFromAppLocationToLocationData(response.locations);
+    this.tableLogic = new TableLogic(new MatTableDataSource(this.locations), this.groupByColumns);
+    this.dataSource = this.tableLogic.dataSource;
   }
 
   ngOnInit() {
     this.tableLogic.updateGridWithDataSource();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   onApplyFilter(filterValue: string) {
@@ -107,15 +100,16 @@ export class LocationListComponent implements OnInit, OnDestroy {
 
   private performAddLocation(location: AppLocation) {
     if (location) {
-      this.locationService.createLocation(location).subscribe((response: LocationResponse) => {
-        if (response.status) {
+      const response = this.locationService.createLocation(location);
+
+      if (response.status) {
           this.handleError(response.status, `Category ${location.category} not found!`);
           return;
         }
-        this.locations = this.convertFromAppLocationToLocationData(response.locations);
-        this.tableLogic.updateGridData(this.locations);
-        this.tableLogic.updateGridWithDataSource();
-      });
+      this.locations = this.convertFromAppLocationToLocationData(response.locations);
+      this.tableLogic.updateGridData(this.locations);
+      this.tableLogic.updateGridWithDataSource();
+
     }
   }
 

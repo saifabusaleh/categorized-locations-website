@@ -1,11 +1,10 @@
-import { LocationResponse, LocationStatusEnum } from '@models/location-response';
+import {  LocationStatusEnum } from '@models/location-response';
 import { LocationService } from '@services/location/location.service';
 import { CategoryService } from '@services/category/category.service';
 
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Category } from '@models/category';
-import { CategoryResponse } from '@models/category.response';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Coordinate, AppLocation } from '@models/location';
 import { DialogModes } from '@enums/dialog-modes';
@@ -40,39 +39,36 @@ export class LocationFormDialogComponent implements OnInit {
   selectedCategoryName: string;
 
   locationForm: FormGroup;
-constructor(private _formBuilder: FormBuilder,
-    private _categoryService: CategoryService,
-    private _locationService: LocationService,
-    private _dialogRef: MatDialogRef<LocationFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LocationDialogData,
-    private _translate: TranslateService,
-    private _snackBarService: SnackBarService) {
+constructor(private formBuilder: FormBuilder,
+            private categoryService: CategoryService,
+            private locationService: LocationService,
+            private dialogRef: MatDialogRef<LocationFormDialogComponent>,
+            @Inject(MAT_DIALOG_DATA) public data: LocationDialogData,
+            private translate: TranslateService,
+            private snackBarService: SnackBarService) {
     this.createForm();
     switch (data.mode) {
 
       case DialogModes.Add:
-        this.confirmation = this._translate.instant('LOCATION_DIALOG.ADD_LOCATION');
+        this.confirmation = this.translate.instant('LOCATION_DIALOG.ADD_LOCATION');
         break;
       case DialogModes.Edit:
-        this.confirmation = this._translate.instant('LOCATION_DIALOG.EDIT_LOCATION');
+        this.confirmation = this.translate.instant('LOCATION_DIALOG.EDIT_LOCATION');
         break;
     }
-    this._categoryService.getCategories().subscribe((response: CategoryResponse) => {
-      this.categories = response.categories;
-    });
+    this.categories = this.categoryService.getCategories().categories;
   }
 
   ngOnInit() {
 
     if (this.data.mode === DialogModes.Edit) {
-      this._locationService.getLocation(this.data.locationName).subscribe((response: LocationResponse) => {
-        if (response.status) {
+      const response = this.locationService.getLocation(this.data.locationName);
+      if (response.status) {
           this.handleError(response.status, this.data.locationName);
           return;
         }
-        const location = response.locations[0];
-        this.updateForm(location);
-      });
+      const location = response.locations[0];
+      this.updateForm(location);
     }
   }
 
@@ -80,7 +76,7 @@ constructor(private _formBuilder: FormBuilder,
 
 
   private createForm() {
-    this.locationForm = this._formBuilder.group({
+    this.locationForm = this.formBuilder.group({
       locationName: new FormControl('Work'),
       locationAddress: new FormControl('Tel Aviv'),
       selectedCategory: new FormControl('')
@@ -103,14 +99,14 @@ constructor(private _formBuilder: FormBuilder,
     const location: AppLocation = new AppLocation(this.locationForm.get('locationName').value,
       this.locationForm.get('locationAddress').value, this.selectedMarker,
       this.locationForm.get('selectedCategory').value);
-    this._dialogRef.close(location);
+    this.dialogRef.close(location);
   }
   onCancelClick(): void {
-    this._dialogRef.close();
+    this.dialogRef.close();
   }
 
   private handleError(status: LocationStatusEnum, parameter?: string) {
-    this._snackBarService.showSnackBar(status.replace('{0}', parameter));
+    this.snackBarService.showSnackBar(status.replace('{0}', parameter));
   }
 
 }
