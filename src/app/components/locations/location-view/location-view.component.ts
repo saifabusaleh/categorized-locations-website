@@ -71,7 +71,7 @@ export class LocationViewComponent implements OnInit {
 
   private performUpdateLocation(newLocation: AppLocation) {
     if (newLocation) {
-      const response = this.locationService.updateLocation(this.locationName, this.categoryName, newLocation);
+      const response = this.locationService.updateLocation(this.locationName, newLocation);
 
       if (response.status) {
           this.handleError(response.status, this.locationName);
@@ -85,7 +85,7 @@ export class LocationViewComponent implements OnInit {
   }
 
   private performDeleteLocation() {
-    const response = this.locationService.deleteLocation(this.locationName, this.categoryName);
+    const response = this.locationService.deleteLocation(this.locationName);
 
     if (response.status) {
         this.handleError(response.status, this.locationName);
