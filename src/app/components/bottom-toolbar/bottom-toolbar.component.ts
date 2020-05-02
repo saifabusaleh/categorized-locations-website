@@ -14,12 +14,12 @@ export class BottomToolbarComponent {
   }
 
   onGoToCategories() {
-    this.router.navigate(['/' + AppPaths.Categories], { replaceUrl: true });
+    this.router.navigate([ AppPaths.Categories], { replaceUrl: true });
 
   }
 
   onGoToLocations() {
-    this.router.navigate(['/' + AppPaths.Locations], { replaceUrl: true });
+    this.router.navigate([AppPaths.Locations], { replaceUrl: true });
   }
 
 }

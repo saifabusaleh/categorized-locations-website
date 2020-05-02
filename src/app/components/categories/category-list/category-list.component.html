@@ -20,7 +20,7 @@
 
 
 <mat-list role="list">
-	<mat-list-item role="listitem" *ngFor="let category of categories$ | async">
+	<mat-list-item role="listitem" *ngFor="let category of categories">
 		<mat-radio-button color="primary" [value]="category.categoryName" (change)="onSelectionChange($event)">
 			{{category.categoryName}}
 		</mat-radio-button>

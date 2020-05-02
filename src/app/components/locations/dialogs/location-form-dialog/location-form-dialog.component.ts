@@ -1,4 +1,3 @@
-import {  LocationStatusEnum } from '@models/location-response';
 import { LocationService } from '@services/location/location.service';
 import { CategoryService } from '@services/category/category.service';
 
@@ -64,8 +63,8 @@ constructor(private formBuilder: FormBuilder,
     if (this.data.mode === DialogModes.Edit) {
       const response = this.locationService.getLocation(this.data.locationName);
       if (response.status) {
-          this.handleError(response.status, this.data.locationName);
-          return;
+        this.snackBarService.showSnackBar(response.status);
+        return;
         }
       const location = response.locations[0];
       this.updateForm(location);
@@ -104,9 +103,4 @@ constructor(private formBuilder: FormBuilder,
   onCancelClick(): void {
     this.dialogRef.close();
   }
-
-  private handleError(status: LocationStatusEnum, parameter?: string) {
-    this.snackBarService.showSnackBar(status.replace('{0}', parameter));
-  }
-
 }

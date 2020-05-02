@@ -26,7 +26,7 @@ export class LocationService {
     const locationsMap: Map<string, AppLocation> = this.localStorageService.getLocations();
     const location = locationsMap.get(locationName);
     if (!location) {
-      locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND;
+      locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND.replace('{0}', locationName);
     } else {
       locationResponse.locations = [location];
     }
@@ -36,6 +36,10 @@ export class LocationService {
   public createLocation(location: AppLocation): LocationResponse {
     const locationResponse = new LocationResponse();
     const locationsMap: Map<string, AppLocation> = this.localStorageService.getLocations();
+    if (locationsMap.get(location.name)) {
+      locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND.replace('{0}', location.name);
+      return locationResponse;
+    }
     locationsMap.set(location.name, location);
     this.localStorageService.setLocations(locationsMap);
     locationResponse.locations = this.utilsService.convertFromMapToArrayValues(locationsMap);
@@ -46,7 +50,7 @@ export class LocationService {
     const locationResponse = new LocationResponse();
     const locationsMap: Map<string, AppLocation> = this.localStorageService.getLocations();
     if (!locationsMap.get(locationName)) {
-      locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND;
+      locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND.replace('{0}', locationName);
       return locationResponse;
     }
     locationsMap.delete(locationName);
@@ -60,7 +64,7 @@ export class LocationService {
     const locationResponse = new LocationResponse();
     const locationsMap: Map<string, AppLocation> = this.localStorageService.getLocations();
     if (!locationsMap.delete(locationName)) {
-      locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND;
+      locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND.replace('{0}', locationName);
       return locationResponse;
     }
     this.localStorageService.setLocations(locationsMap);

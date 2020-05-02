@@ -1,8 +1,7 @@
-import { LocationStatusEnum } from '@models/location-response';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from '@services/location/location.service';
-import { AppLocation } from '@models/location';
+import { AppLocation, Coordinate } from '@models/location';
 import { DialogModes } from '@enums/dialog-modes';
 import { AppPaths } from '@enums/app-paths';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,8 +19,7 @@ export class LocationViewComponent implements OnInit {
   private categoryName: string;
 
   location: AppLocation;
-  latitude: number;
-  longitude: number;
+  coordinate: Coordinate;
 
 
   constructor(private route: ActivatedRoute,
@@ -46,8 +44,7 @@ export class LocationViewComponent implements OnInit {
       }
     this.location = response.locations[0];
     this.categoryName = this.location.category;
-    this.latitude = this.location.coords.lat;
-    this.longitude = this.location.coords.lng;
+    this.coordinate = this.location.coords;
   }
 
   onEditLocation() {
@@ -74,10 +71,10 @@ export class LocationViewComponent implements OnInit {
       const response = this.locationService.updateLocation(this.locationName, newLocation);
 
       if (response.status) {
-          this.handleError(response.status, this.locationName);
-          return;
+        this.snackBarService.showSnackBar(response.status);
+        return;
         }
-      this.router.navigate(['/' + AppPaths.Locations + '/' +  response.location.name],  { replaceUrl: true });
+      this.router.navigate([AppPaths.Locations + '/' +  response.location.name],  { replaceUrl: true });
       this.location = response.location;
       this.locationName = this.location.name;
 
@@ -88,15 +85,10 @@ export class LocationViewComponent implements OnInit {
     const response = this.locationService.deleteLocation(this.locationName);
 
     if (response.status) {
-        this.handleError(response.status, this.locationName);
-        return;
+       this.snackBarService.showSnackBar(response.status);
+       return;
       }
-    this.router.navigate(['/' + AppPaths.Locations]);
+    this.router.navigate([AppPaths.Locations]);
 
   }
-
-  private handleError(status: LocationStatusEnum, parameter?: string) {
-    this.snackBarService.showSnackBar(status.replace('{0}', parameter));
-  }
-
 }

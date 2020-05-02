@@ -1,9 +1,7 @@
-import { LocationStatusEnum } from '@models/location-response';
 import { AppPaths } from '@enums/app-paths';
 import { LocationService } from '@services/location/location.service';
 import { AppLocation } from '@models/location';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LocationResponse } from '@models/location-response';
+import { Component, OnInit } from '@angular/core';
 import { DialogModes } from '@enums/dialog-modes';
 import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
@@ -103,8 +101,8 @@ export class LocationListComponent implements OnInit {
       const response = this.locationService.createLocation(location);
 
       if (response.status) {
-          this.handleError(response.status, `Category ${location.category} not found!`);
-          return;
+        this.snackBarService.showSnackBar(response.status);
+        return;
         }
       this.locations = this.convertFromAppLocationToLocationData(response.locations);
       this.tableLogic.updateGridData(this.locations);
@@ -112,9 +110,4 @@ export class LocationListComponent implements OnInit {
 
     }
   }
-
-  private handleError(status: LocationStatusEnum, parameter?: string) {
-    this.snackBarService.showSnackBar(status.replace('{0}', parameter));
-  }
-
 }

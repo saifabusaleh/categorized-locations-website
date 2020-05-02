@@ -37,8 +37,8 @@
         </div>
 
 
-        <agm-map fxFlex="90" style="height: 100%" [latitude]='latitude' [longitude]='longitude'>
-            <agm-marker [latitude]='latitude' [longitude]='longitude' [markerDraggable]='true'>
+        <agm-map fxFlex="90" style="height: 100%" [latitude]='coordinate.lat' [longitude]='coordinate.lng'>
+            <agm-marker [latitude]='coordinate.lat' [longitude]='coordinate.lng' [markerDraggable]='true'>
             </agm-marker>
         </agm-map>
 

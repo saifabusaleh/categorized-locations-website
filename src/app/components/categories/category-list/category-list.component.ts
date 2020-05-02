@@ -4,12 +4,10 @@ import { AppPaths } from '@enums/app-paths';
 import { Component } from '@angular/core';
 import { CategoryService } from '@services/category/category.service';
 import { CategoryResponse, CategoryStatusEnum } from '@models/category.response';
-import { Observable, of } from 'rxjs';
 import { DialogModes } from '@enums/dialog-modes';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialogComponent } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
 import { MatRadioChange } from '@angular/material/radio';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-category-list',
@@ -21,14 +19,14 @@ export class CategoryListComponent {
 
 
   selectedCategoryName: string;
-  categories$: Observable<Category[]>;
+  categories: Category[];
 
 
 
   constructor(private categoryService: CategoryService,
               private dialog: MatDialog,
               private snackBarService: SnackBarService) {
-    this.categories$ = of(this.categoryService.getCategories().categories);
+    this.categories = this.categoryService.getCategories().categories;
   }
 
 
@@ -68,10 +66,10 @@ export class CategoryListComponent {
     if (categoryName) {
       const response: CategoryResponse = this.categoryService.createCategory(new Category(categoryName));
       if (response.status) {
-          this._handleError(response.status, categoryName);
-          return;
+        this.snackBarService.showSnackBar(response.status);
+        return;
         }
-      this.categories$ = of(response.categories);
+      this.categories = response.categories;
     }
   }
 
@@ -79,7 +77,7 @@ export class CategoryListComponent {
     if (newCategoryName) {
       const response = this.categoryService.updateCategoryName(this.selectedCategoryName, newCategoryName);
       if (response.status) {
-          this._handleError(response.status, this.selectedCategoryName);
+          this.snackBarService.showSnackBar(response.status);
           return;
         }
       this._updateDataSource(response.categories);
@@ -89,20 +87,14 @@ export class CategoryListComponent {
   private _performDeleteCategory() {
     const response = this.categoryService.deleteCategory(this.selectedCategoryName);
     if (response.status) {
-        this._handleError(response.status, this.selectedCategoryName);
+        this.snackBarService.showSnackBar(response.status);
         return;
       }
     this._updateDataSource(response.categories);
   }
 
   private _updateDataSource(categories: Category[]) {
-    this.categories$ = of(categories);
+    this.categories = categories;
     this.selectedCategoryName = undefined;
   }
-
-  private _handleError(status: CategoryStatusEnum, parameter?: string) {
-    this.snackBarService.showSnackBar(status.replace('{0}', parameter));
-  }
-
-
 }

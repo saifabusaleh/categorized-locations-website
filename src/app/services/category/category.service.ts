@@ -35,7 +35,7 @@ export class CategoryService {
     this.categories = this.localStorageService.getCategories();
     const categoryToAdd: Category = this.categories.get(category.categoryName);
     if (categoryToAdd) {
-      categoriesResponse.status = CategoryStatusEnum.CATEGORY_ALREADY_EXIST;
+      categoriesResponse.status = CategoryStatusEnum.CATEGORY_ALREADY_EXIST.replace('{0}', category.categoryName);
       return categoriesResponse;
     }
     this.categories.set(category.categoryName, category);
@@ -49,7 +49,7 @@ export class CategoryService {
     const categoriesResponse = new CategoryResponse();
     const category: Category = this.categories.get(catName);
     if (!category) {
-      categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
+      categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND.replace('{0}', catName);
     } else {
       categoriesResponse.categories = [category];
     }
@@ -61,7 +61,7 @@ export class CategoryService {
     this.categories = this.localStorageService.getCategories();
     const category: Category = this.categories.get(categoryName);
     if (!category) {
-      categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
+      categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND.replace('{0}', categoryName);
       return categoriesResponse;
     }
     category.categoryName = newCategoryName;
@@ -76,7 +76,7 @@ export class CategoryService {
     const categoriesResponse = new CategoryResponse();
     this.categories = this.localStorageService.getCategories();
     if (!this.categories.delete(categoryName)) {
-      categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND;
+      categoriesResponse.status = CategoryStatusEnum.CATEGORY_NOT_FOUND.replace('{0}', categoryName);
       return categoriesResponse;
     }
     this.localStorageService.setCategories(this.categories);

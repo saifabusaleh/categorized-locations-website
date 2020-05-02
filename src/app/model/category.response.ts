@@ -11,7 +11,7 @@ export class CategoryResponse {
 
     categoriesMap: Map<string, Category>;
 
-    status: CategoryStatusEnum;
+    status: string;
 
     locations: AppLocation[];
 

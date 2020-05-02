@@ -1,5 +1,4 @@
 export enum AppPaths {
-    CategoryDetails = 'category',
-    Locations = 'locations',
-    Categories = 'categories'
+    Locations = '/locations',
+    Categories = '/categories'
 }
