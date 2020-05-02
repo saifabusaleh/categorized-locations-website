@@ -77,7 +77,7 @@ export class LocationViewComponent implements OnInit {
           this.handleError(response.status, this.locationName);
           return;
         }
-      this.router.navigate(['/' + AppPaths.Locations + '/' +  response.location.name]);
+      this.router.navigate(['/' + AppPaths.Locations + '/' +  response.location.name],  { replaceUrl: true });
       this.location = response.location;
       this.locationName = this.location.name;
 
