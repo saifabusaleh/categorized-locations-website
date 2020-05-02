@@ -49,7 +49,8 @@ export class LocationService {
       locationResponse.status = LocationStatusEnum.LOCATION_NOT_FOUND;
       return locationResponse;
     }
-    locationsMap.set(locationName, newLocation);
+    locationsMap.delete(locationName);
+    locationsMap.set(newLocation.name, newLocation);
     this.localStorageService.setLocations(locationsMap);
     locationResponse.location = newLocation;
     return locationResponse;
