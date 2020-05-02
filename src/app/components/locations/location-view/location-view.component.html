@@ -20,8 +20,8 @@
 
 <!-- <div class="location-view-container" fxLayout="column" fxLayoutAlign="start stretch"> -->
 <mat-card>
-    <div class="location-view-container" fxLayout="column" fxLayoutAlign="start stretch">
-        <div fxFlex="10" fxLayout="column wrap">
+    <div class="location-view-container" fxLayout="column" fxLayoutAlign="start">
+        <div fxLayout="column wrap">
             <div class="location-view-item">
                 {{'LOCATION_VIEW.NAME_LABEL' | translate}} {{location.name}}
             </div>
@@ -37,7 +37,7 @@
         </div>
 
 
-        <agm-map fxFlex="90" style="height: 100%" [latitude]='coordinate.lat' [longitude]='coordinate.lng'>
+        <agm-map style="height: 100%" [latitude]='coordinate.lat' [longitude]='coordinate.lng'>
             <agm-marker [latitude]='coordinate.lat' [longitude]='coordinate.lng' [markerDraggable]='true'>
             </agm-marker>
         </agm-map>

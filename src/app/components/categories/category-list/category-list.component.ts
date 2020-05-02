@@ -3,7 +3,7 @@ import { Category } from '@models/category';
 import { AppPaths } from '@enums/app-paths';
 import { Component } from '@angular/core';
 import { CategoryService } from '@services/category/category.service';
-import { CategoryResponse, CategoryStatusEnum } from '@models/category.response';
+import { CategoryResponse } from '@models/category.response';
 import { DialogModes } from '@enums/dialog-modes';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialogComponent } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
@@ -14,6 +14,7 @@ import { MatRadioChange } from '@angular/material/radio';
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.scss']
 })
+
 export class CategoryListComponent {
   appPathsEnum = AppPaths;
 
