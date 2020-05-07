@@ -8,6 +8,7 @@ Demo: http://pacific-spire-36644.herokuapp.com/
 Run `npm run start:dev` to debug locally
 
 **Features**:
+
 * Developed with Angular 9 + Typescript.
 * CRUD angular application that works with the local storage.
 * Use of angular material.
