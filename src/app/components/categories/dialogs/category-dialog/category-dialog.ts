@@ -10,7 +10,7 @@ export interface CategoryDialogData {
 }
 
 @Component({
-  selector: 'category-dialog',
+  selector: 'app-category-dialog',
   templateUrl: './category-dialog.html',
 })
 export class CategoryDialogComponent {

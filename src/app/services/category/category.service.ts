@@ -66,7 +66,7 @@ export class CategoryService {
     }
     category.categoryName = newCategoryName;
     this.categories.set(newCategoryName, category); // add new
-    this.categories.delete(categoryName); //remove old one
+    this.categories.delete(categoryName); // remove old one
     this.localStorageService.setCategories(this.categories);
     categoriesResponse.categories = this.utilsService.convertFromMapToArrayValues(this.categories);
     return categoriesResponse;
