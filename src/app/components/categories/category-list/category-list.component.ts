@@ -1,9 +1,8 @@
 import { SnackBarService } from '@services/snack-bar/snack-bar.service';
-import { Category } from '@models/category';
+import { Category, CategoryResponse } from '@models/category';
 import { AppPaths } from '@enums/app-paths';
 import { Component } from '@angular/core';
 import { CategoryService } from '@services/category/category.service';
-import { CategoryResponse } from '@models/category.response';
 import { DialogModes } from '@enums/dialog-modes';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialogComponent } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
