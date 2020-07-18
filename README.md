@@ -18,7 +18,7 @@ Run `npm run start:dev` to debug locally
 * Use of feature lazy loading.
 * Use of reactive forms.
 
-Images:
+## Images
 
 <img src="images/1.PNG" alt="img1" height="200">
 
