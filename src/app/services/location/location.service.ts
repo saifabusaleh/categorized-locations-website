@@ -10,8 +10,9 @@ export class LocationService {
 
   private locationsMap: Map<string, AppLocation>;
 
-  constructor(private localStorageService: LocalStorageService,
-              private utilsService: UtilsService) {
+  constructor(
+    private localStorageService: LocalStorageService,
+    private utilsService: UtilsService) {
     this.locationsMap = new Map();
     this.locationsMap = this.localStorageService.getLocations();
   }

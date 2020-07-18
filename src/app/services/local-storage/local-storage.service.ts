@@ -26,9 +26,7 @@ export class LocalStorageService {
     localStorage[this.LOCATIONS_LOCAL_STORAGE_KEY] = JSON.stringify(Array.from(value.entries()));
   }
 
-
   public getLocations(): Map<string, AppLocation> {
     return new Map(JSON.parse(localStorage.getItem(this.LOCATIONS_LOCAL_STORAGE_KEY)));
   }
-
 }

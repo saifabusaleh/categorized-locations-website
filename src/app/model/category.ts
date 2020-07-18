@@ -3,7 +3,6 @@ import { AppLocation } from './location';
 export class Category {
     categoryName: string;
 
-
     constructor(categoryName: string) {
         this.categoryName = categoryName;
     }
@@ -21,5 +20,4 @@ export class CategoryResponse {
     status: string;
 
     locations: AppLocation[];
-
 }

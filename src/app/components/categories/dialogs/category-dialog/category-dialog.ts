@@ -1,11 +1,10 @@
-import { DialogModes } from '@enums/dialog-modes';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogModes } from '@enums/dialog-modes';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface CategoryDialogData {
   categoryName: string;
-
   mode: DialogModes;
 }
 
@@ -36,7 +35,7 @@ export class CategoryDialogComponent {
     }
   }
 
-  onCloseClick(): void {
+  onCloseDialog(): void {
     this.dialogRef.close();
   }
 }

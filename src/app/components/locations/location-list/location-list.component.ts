@@ -1,14 +1,14 @@
-import { AppPaths } from '@enums/app-paths';
-import { LocationService } from '@services/location/location.service';
-import { AppLocation } from '@models/location';
 import { Component, OnInit } from '@angular/core';
-import { DialogModes } from '@enums/dialog-modes';
-import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
-import { SnackBarService } from '@services/snack-bar/snack-bar.service';
-import { TableLogic } from './TableLogic';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
+import { AppPaths } from '@enums/app-paths';
+import { DialogModes } from '@enums/dialog-modes';
+import { AppLocation } from '@models/location';
+import { LocationService } from '@services/location/location.service';
+import { SnackBarService } from '@services/snack-bar/snack-bar.service';
+import { TableLogic } from './TableLogic';
 
 export interface LocationData {
   name: string;
@@ -38,9 +38,10 @@ export class LocationListComponent implements OnInit {
 
   private tableLogic: TableLogic;
 
-  constructor(private locationService: LocationService,
-              private dialog: MatDialog,
-              private snackBarService: SnackBarService) {
+  constructor(
+    private locationService: LocationService,
+    private dialog: MatDialog,
+    private snackBarService: SnackBarService) {
     this.locations = [];
     const response = this.locationService.getLocations();
     this.locations = this.convertFromAppLocationToLocationData(response.locations);
@@ -103,11 +104,10 @@ export class LocationListComponent implements OnInit {
       if (response.status) {
         this.snackBarService.showSnackBar(response.status);
         return;
-        }
+      }
       this.locations = this.convertFromAppLocationToLocationData(response.locations);
       this.tableLogic.updateGridData(this.locations);
       this.tableLogic.updateGridWithDataSource();
-
     }
   }
 }

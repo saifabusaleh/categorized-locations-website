@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppPaths } from '@enums/app-paths';
 
@@ -14,12 +14,10 @@ export class BottomToolbarComponent {
   }
 
   onGoToCategories() {
-    this.router.navigate([ AppPaths.Categories], { replaceUrl: true });
-
+    this.router.navigate([AppPaths.Categories], { replaceUrl: true });
   }
 
   onGoToLocations() {
     this.router.navigate([AppPaths.Locations], { replaceUrl: true });
   }
-
 }

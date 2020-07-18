@@ -1,4 +1,4 @@
-export enum DialogModes  {
+export enum DialogModes {
     Add,
     Edit
 }

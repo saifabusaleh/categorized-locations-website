@@ -1,6 +1,6 @@
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { LocationData } from './location-list.component';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 
 class Group {
 
@@ -48,7 +48,7 @@ export class TableLogic {
         if (groupRows.length > 1) {
             throw new Error('Data row is in more than one group!');
         }
-        const parent =  (groupRows[0] as any) as Group;  // </Group> (Fix syntax coloring)
+        const parent = (groupRows[0] as any) as Group;  // </Group> (Fix syntax coloring)
 
         return parent.visible && parent.expanded;
     }
@@ -158,5 +158,5 @@ export class TableLogic {
         filterValue = filterValue.trim(); // Remove whitespace
         filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
         this.dataSource.filter = filterValue;
-      }
+    }
 }

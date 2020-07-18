@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LocationViewComponent } from './location-view/location-view.component';
+import { RouterModule, Routes } from '@angular/router';
 import { LocationListComponent } from './location-list/location-list.component';
+import { LocationViewComponent } from './location-view/location-view.component';
 
 
 const routes: Routes = [

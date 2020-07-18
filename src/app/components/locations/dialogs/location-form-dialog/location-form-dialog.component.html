@@ -14,24 +14,24 @@
         </agm-marker>
     </agm-map>
     <div fxFlex="0 0 auto">
-        <div  class="radio-group-container">
+        <div class="radio-group-container">
             <label *ngIf="categories.length > 0">{{'LOCATION_DIALOG.PICK_CATEGORY' | translate}}</label>
-            <mat-radio-group  class="radio-group" fxLayout="row wrap" fxLayoutAlign="space-evenly center" aria-labelledby="radio-group-label" formControlName="selectedCategory">
+            <mat-radio-group class="radio-group" fxLayout="row wrap" fxLayoutAlign="space-evenly center"
+                aria-labelledby="radio-group-label" formControlName="selectedCategory">
                 <mat-radio-button *ngFor="let category of categories" [value]="category.categoryName">
                     {{category.categoryName}}
                 </mat-radio-button>
                 <label *ngIf="categories.length === 0 ">{{'LOCATION_DIALOG.NO_CATEGORIES_FOUND' | translate}}</label>
             </mat-radio-group>
         </div>
-        
+
     </div>
 
-
-    <!-- <p *ngIf='selectedMarker'>Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}</p> -->
     <div fxFlex>
         <div fxLayout="row" fxLayoutAlign="center">
-            <button fxFlex mat-button (click)="onConfirmClick()" color="primary">{{confirmation}}</button>
-            <button fxFlex mat-button (click)="onCancelClick()" color="primary">{{'LOCATION_DIALOG.CANCEL' | translate}}</button>
+            <button fxFlex mat-button (click)="onConfirm()" color="primary">{{confirmation}}</button>
+            <button fxFlex mat-button (click)="onCancel()"
+                color="primary">{{'LOCATION_DIALOG.CANCEL' | translate}}</button>
         </div>
     </div>
 

@@ -16,8 +16,9 @@ export class AppLocation {
     coords: Coordinate;
     category: string;
 
-    constructor(locationName: string, locationAddress: string, locationCords: Coordinate,
-                locationCategory: string) {
+    constructor(
+        locationName: string, locationAddress: string, locationCords: Coordinate,
+        locationCategory: string) {
         this.name = locationName;
         this.coords = locationCords;
         this.address = locationAddress;

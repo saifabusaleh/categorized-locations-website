@@ -1,7 +1,6 @@
 import { Category, CategoryResponse, CategoryStatusEnum } from '@models/category';
 import { LocalStorageService } from '@services/local-storage/local-storage.service';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { UtilsService } from '@services/utils/utils.service';
 
 @Injectable({
@@ -12,8 +11,9 @@ export class CategoryService {
   private categories: Map<string, Category>;
 
 
-  constructor(private localStorageService: LocalStorageService,
-              private utilsService: UtilsService) {
+  constructor(
+    private localStorageService: LocalStorageService,
+    private utilsService: UtilsService) {
     this.categories = new Map();
     this.categories = this.localStorageService.getCategories();
   }

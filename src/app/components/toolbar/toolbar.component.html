@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
-
 	<mat-toolbar-row>
-
 		<mat-menu #menu="matMenu">
 			<ng-content select="[slot-menu]"></ng-content>
 		</mat-menu>
-		<div fxLayoutAlign="start center" fxFlex="1 1 95%" ><ng-content select="[slot-title]"></ng-content> </div>
+		<div fxLayoutAlign="start center" fxFlex="1 1 95%">
+			<ng-content select="[slot-title]"></ng-content>
+		</div>
 		<button fxFlex="1 1 auto" fxLayoutAlign="end center" mat-button [matMenuTriggerFor]="menu">
 			<mat-icon>more_vert</mat-icon>
 		</button>

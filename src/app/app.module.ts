@@ -1,16 +1,16 @@
-import { AppComponent } from '@components/app/app.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { BottomToolbarComponent } from '@components/bottom-toolbar/bottom-toolbar.component';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SharedModule } from './shared/shared.module';
+import { NgModule } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppComponent } from '@components/app/app.component';
+import { BottomToolbarComponent } from '@components/bottom-toolbar/bottom-toolbar.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -33,8 +33,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-      deps: [HttpClient]
-    }
+        deps: [HttpClient]
+      }
     }),
     SharedModule
   ],

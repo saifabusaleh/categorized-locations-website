@@ -1,12 +1,12 @@
-import { SnackBarService } from '@services/snack-bar/snack-bar.service';
-import { Category, CategoryResponse } from '@models/category';
-import { AppPaths } from '@enums/app-paths';
 import { Component } from '@angular/core';
-import { CategoryService } from '@services/category/category.service';
-import { DialogModes } from '@enums/dialog-modes';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryDialogComponent } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
 import { MatRadioChange } from '@angular/material/radio';
+import { AppPaths } from '@enums/app-paths';
+import { DialogModes } from '@enums/dialog-modes';
+import { Category, CategoryResponse } from '@models/category';
+import { CategoryService } from '@services/category/category.service';
+import { SnackBarService } from '@services/snack-bar/snack-bar.service';
+import { CategoryDialogComponent } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
 
 @Component({
   selector: 'app-category-list',
@@ -23,9 +23,10 @@ export class CategoryListComponent {
 
 
 
-  constructor(private categoryService: CategoryService,
-              private dialog: MatDialog,
-              private snackBarService: SnackBarService) {
+  constructor(
+    private categoryService: CategoryService,
+    private dialog: MatDialog,
+    private snackBarService: SnackBarService) {
     this.categories = this.categoryService.getCategories().categories;
   }
 
@@ -68,7 +69,7 @@ export class CategoryListComponent {
       if (response.status) {
         this.snackBarService.showSnackBar(response.status);
         return;
-        }
+      }
       this.categories = response.categories;
     }
   }
@@ -77,19 +78,19 @@ export class CategoryListComponent {
     if (newCategoryName) {
       const response = this.categoryService.updateCategoryName(this.selectedCategoryName, newCategoryName);
       if (response.status) {
-          this.snackBarService.showSnackBar(response.status);
-          return;
-        }
-      this._updateDataSource(response.categories);
+        this.snackBarService.showSnackBar(response.status);
+        return;
       }
+      this._updateDataSource(response.categories);
+    }
   }
 
   private _performDeleteCategory() {
     const response = this.categoryService.deleteCategory(this.selectedCategoryName);
     if (response.status) {
-        this.snackBarService.showSnackBar(response.status);
-        return;
-      }
+      this.snackBarService.showSnackBar(response.status);
+      return;
+    }
     this._updateDataSource(response.categories);
   }
 

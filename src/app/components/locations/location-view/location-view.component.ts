@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LocationService } from '@services/location/location.service';
-import { AppLocation, Coordinate } from '@models/location';
-import { DialogModes } from '@enums/dialog-modes';
-import { AppPaths } from '@enums/app-paths';
 import { MatDialog } from '@angular/material/dialog';
-import { SnackBarService } from '@services/snack-bar/snack-bar.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
+import { AppPaths } from '@enums/app-paths';
+import { DialogModes } from '@enums/dialog-modes';
+import { AppLocation, Coordinate } from '@models/location';
+import { LocationService } from '@services/location/location.service';
+import { SnackBarService } from '@services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-location-view',
@@ -22,11 +22,12 @@ export class LocationViewComponent implements OnInit {
   coordinate: Coordinate;
 
 
-  constructor(private route: ActivatedRoute,
-              private locationService: LocationService,
-              private router: Router,
-              private dialog: MatDialog,
-              private snackBarService: SnackBarService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private locationService: LocationService,
+    private router: Router,
+    private dialog: MatDialog,
+    private snackBarService: SnackBarService) { }
 
   ngOnInit() {
 
@@ -39,9 +40,9 @@ export class LocationViewComponent implements OnInit {
   getLocation(locationName: string) {
     const response = this.locationService.getLocation(locationName);
     if (response.status) {
-        // handle
-        return;
-      }
+      // handle
+      return;
+    }
     this.location = response.locations[0];
     this.categoryName = this.location.category;
     this.coordinate = this.location.coords;
@@ -73,11 +74,10 @@ export class LocationViewComponent implements OnInit {
       if (response.status) {
         this.snackBarService.showSnackBar(response.status);
         return;
-        }
-      this.router.navigate([AppPaths.Locations + '/' +  response.location.name],  { replaceUrl: true });
+      }
+      this.router.navigate([AppPaths.Locations + '/' + response.location.name], { replaceUrl: true });
       this.location = response.location;
       this.locationName = this.location.name;
-
     }
   }
 
@@ -85,9 +85,9 @@ export class LocationViewComponent implements OnInit {
     const response = this.locationService.deleteLocation(this.locationName);
 
     if (response.status) {
-       this.snackBarService.showSnackBar(response.status);
-       return;
-      }
+      this.snackBarService.showSnackBar(response.status);
+      return;
+    }
     this.router.navigate([AppPaths.Locations]);
 
   }
