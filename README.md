@@ -1,4 +1,4 @@
-# My Locations Application
+# Categorized Locations Website
 
 Website that shows locations by category.
 Demo: http://pacific-spire-36644.herokuapp.com/
