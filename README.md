@@ -1,7 +1,6 @@
 # Categorized Locations Website
 
-Website that shows locations by category.
-Demo: http://pacific-spire-36644.herokuapp.com/
+Website that shows locations categorized by category.
 
 ## Getting Started
 
