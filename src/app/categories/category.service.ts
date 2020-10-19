@@ -3,9 +3,7 @@ import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { Injectable } from '@angular/core';
 import { UtilsService } from 'src/app/shared/utils.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CategoryService {
 
   private categories: Map<string, Category>;

@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationFormDialogComponent } from './dialogs/location-form-dialog/location-form-dialog.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { LocationViewComponent } from './location-view/location-view.component';
+import { LocationService } from './location.service';
 import { LocationsRoutingModule } from './locations-routing.module';
 
 
@@ -34,6 +35,8 @@ import { LocationsRoutingModule } from './locations-routing.module';
     MatSortModule,
     MatCardModule
   ],
+
+  providers: [LocationService],
 
   entryComponents: [
     LocationFormDialogComponent

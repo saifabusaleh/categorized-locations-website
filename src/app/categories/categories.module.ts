@@ -4,6 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CategoriesRoutingModule } from './categories-routing.module';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryService } from './category.service';
 import { CategoryDialogComponent } from './dialogs/category-dialog/category-dialog';
 
 @NgModule({
@@ -17,6 +18,8 @@ import { CategoryDialogComponent } from './dialogs/category-dialog/category-dial
     SharedModule,
     MatListModule,
   ],
+
+  providers: [CategoryService],
 
   exports: [
     CategoryDialogComponent

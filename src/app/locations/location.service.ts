@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AppLocation, LocationStatusEnum, LocationResponse } from 'src/app/locations/location';
+import { AppLocation, LocationResponse, LocationStatusEnum } from 'src/app/locations/location';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { UtilsService } from 'src/app/shared/utils.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LocationService {
 
   private locationsMap: Map<string, AppLocation>;
