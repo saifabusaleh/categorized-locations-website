@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
-import { AppPaths } from '@enums/app-paths';
-import { DialogModes } from '@enums/dialog-modes';
-import { Category, CategoryResponse } from '@models/category';
-import { CategoryService } from '@services/category/category.service';
-import { SnackBarService } from '@services/snack-bar/snack-bar.service';
-import { CategoryDialogComponent } from 'src/app/components/categories/dialogs/category-dialog/category-dialog';
+import { Category, CategoryResponse } from 'src/app/categories/category';
+import { CategoryService } from 'src/app/categories/category.service';
+import { AppPaths } from 'src/app/shared/app-paths';
+import { DialogModes } from 'src/app/shared/dialog-modes';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
+import { CategoryDialogComponent } from '../dialogs/category-dialog/category-dialog';
 
 @Component({
   selector: 'app-category-list',

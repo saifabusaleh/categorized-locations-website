@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AppLocation, LocationStatusEnum, LocationResponse } from '@models/location';
-import { LocalStorageService } from '@services/local-storage/local-storage.service';
-import { UtilsService } from '@services/utils/utils.service';
+import { AppLocation, LocationStatusEnum, LocationResponse } from 'src/app/locations/location';
+import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { UtilsService } from 'src/app/shared/utils.service';
 
 @Injectable({
   providedIn: 'root'

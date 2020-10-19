@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
-import { AppPaths } from '@enums/app-paths';
-import { DialogModes } from '@enums/dialog-modes';
-import { AppLocation, Coordinate } from '@models/location';
-import { LocationService } from '@services/location/location.service';
-import { SnackBarService } from '@services/snack-bar/snack-bar.service';
+import { AppPaths } from 'src/app/shared/app-paths';
+import { DialogModes } from 'src/app/shared/dialog-modes';
+import { AppLocation, Coordinate } from 'src/app/locations/location';
+import { LocationService } from 'src/app/locations/location.service';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
+import { LocationFormDialogComponent } from '../dialogs/location-form-dialog/location-form-dialog.component';
 
 @Component({
   selector: 'app-location-view',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppPaths } from '@enums/app-paths';
+import { AppPaths } from 'src/app/shared/app-paths';
 
 @Component({
   selector: 'app-bottom-toolbar',

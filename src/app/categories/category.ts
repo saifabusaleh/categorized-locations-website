@@ -1,4 +1,4 @@
-import { AppLocation } from './location';
+import { AppLocation } from '../locations/location';
 
 export class Category {
     categoryName: string;

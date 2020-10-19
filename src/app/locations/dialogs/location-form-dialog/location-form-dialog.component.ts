@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogModes } from '@enums/dialog-modes';
-import { Category } from '@models/category';
-import { AppLocation, Coordinate } from '@models/location';
+import { DialogModes } from 'src/app/shared/dialog-modes';
+import { Category } from 'src/app/categories/category';
+import { AppLocation, Coordinate } from 'src/app/locations/location';
 import { TranslateService } from '@ngx-translate/core';
-import { CategoryService } from '@services/category/category.service';
-import { LocationService } from '@services/location/location.service';
-import { SnackBarService } from '@services/snack-bar/snack-bar.service';
+import { CategoryService } from 'src/app/categories/category.service';
+import { LocationService } from 'src/app/locations/location.service';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
 
 
 export interface LocationDialogData {

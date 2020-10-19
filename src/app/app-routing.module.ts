@@ -6,12 +6,12 @@ const routes: Routes = [
 
   {
     path: 'categories',
-    loadChildren: () => import('./components/categories/categories.module').then(m => m.CategoriesModule)
+    loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)
 
   },
   {
     path: 'locations',
-    loadChildren: () => import('./components/locations/locations.module').then(m => m.LocationsModule)
+    loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule)
 
   },
   { path: '', redirectTo: '/categories', pathMatch: 'full' }

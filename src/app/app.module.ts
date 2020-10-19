@@ -4,11 +4,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from '@components/app/app.component';
-import { BottomToolbarComponent } from '@components/bottom-toolbar/bottom-toolbar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app/app.component';
+import { BottomToolbarComponent } from './bottom-toolbar/bottom-toolbar.component';
 import { SharedModule } from './shared/shared.module';
 
 

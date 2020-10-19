@@ -1,7 +1,7 @@
-import { Category, CategoryResponse, CategoryStatusEnum } from '@models/category';
-import { LocalStorageService } from '@services/local-storage/local-storage.service';
+import { Category, CategoryResponse, CategoryStatusEnum } from 'src/app/categories/category';
+import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { Injectable } from '@angular/core';
-import { UtilsService } from '@services/utils/utils.service';
+import { UtilsService } from 'src/app/shared/utils.service';
 
 @Injectable({
   providedIn: 'root'

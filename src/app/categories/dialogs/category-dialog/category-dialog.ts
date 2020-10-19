@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogModes } from '@enums/dialog-modes';
+import { DialogModes } from 'src/app/shared/dialog-modes';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface CategoryDialogData {

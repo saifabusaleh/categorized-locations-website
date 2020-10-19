@@ -10,8 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ToolbarComponent } from '@components/toolbar/toolbar.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 
 
 

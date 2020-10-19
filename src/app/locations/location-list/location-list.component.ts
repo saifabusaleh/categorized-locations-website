@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { LocationFormDialogComponent } from '@components/locations/dialogs/location-form-dialog/location-form-dialog.component';
-import { AppPaths } from '@enums/app-paths';
-import { DialogModes } from '@enums/dialog-modes';
-import { AppLocation } from '@models/location';
-import { LocationService } from '@services/location/location.service';
-import { SnackBarService } from '@services/snack-bar/snack-bar.service';
+import { AppPaths } from 'src/app/shared/app-paths';
+import { DialogModes } from 'src/app/shared/dialog-modes';
+import { AppLocation } from 'src/app/locations/location';
+import { LocationService } from 'src/app/locations/location.service';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
+import { LocationFormDialogComponent } from '../dialogs/location-form-dialog/location-form-dialog.component';
 import { TableLogic } from './TableLogic';
 
 export interface LocationData {
